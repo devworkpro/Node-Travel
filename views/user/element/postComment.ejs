@@ -1,0 +1,82 @@
+<% if(type == 'PostComment'){%> 
+
+<input type="hidden" value="<%= data.order %>" class="gCParnt">
+<div class="parent has">
+ <div class="user">
+        <% if(data.userId){
+        var userONe = data.userId;
+        if(data.userId.local.from =='local'){
+        var mainUser = data.userId.local;
+        }else{
+         var mainUser = data.userId.facebook;
+        }
+                        %>
+            
+                                 <%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:30px;">  
+<% }
+}
+%>
+
+   </div>
+
+<div class="comment">
+ <div class="user_name"><%= mainUser.user_name %></div>
+
+<%= data.message %>&nbsp;<%- timeAgo(data.created_at); %> 
+ <input type="hidden" class="postId" value="<%- data.postId %>">
+<input type="hidden" value="<%= data.order %>" class="parent_id">
+<input type="hidden" value="<%= data.order %>" class="order">
+<input type="hidden" value="PostReply" class="type">
+
+<input type="hidden" class="commtId" value="<%- data.id %>">
+
+ <div><a class="replyNow">Reply</a></div>
+
+ </div>
+</div>
+
+
+<% }else{ %>
+
+ <div class="out child has">
+ <div class="user">
+      
+           <% if(data.userId){
+        var userONe = data.userId;
+        if(data.userId.local.from =='local'){
+        var mainUser = data.userId.local;
+        }else{
+         var mainUser = data.userId.facebook;
+        }
+                        %>
+                    
+            
+                                 <%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:30px;">  
+<% }
+}
+%>
+
+   </div>
+ <div class="comment">
+  <div class="user_name"><%= mainUser.user_name %></div>
+<%= data.message %>&nbsp;<%- timeAgo(data.created_at); %>
+ <input type="hidden" class="postId" value="<%- data.postId %>">
+<input type="hidden" value="<%= data.order %>" class="parent_id">
+<input type="hidden" value="<%= data.order %>" class="order">
+<input type="hidden" value="PostReply" class="type">
+
+<input type="hidden" class="commtId" value="<%- data.id %>">
+ <div><a class="replyNow">Reply</a></div>
+ </div>
+
+ </div>
+<% }%>
+
+
+

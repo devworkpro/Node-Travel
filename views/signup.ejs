@@ -1,0 +1,362 @@
+
+    <script>
+        $(document).ready(function() {
+            /*$("#phone").intlTelInput();
+            var getCode = $("#phone").intlTelInput('getSelectedCountryData').dialCode;
+            $("#phone").val('+' + getCode);*/
+
+            /********signUp form validation *********/
+            $('#signUp').submit(function(e) {
+
+                /*var countryName = $('.selected-flag').attr('title');
+                $('.cnty_Nm').val(countryName);*/
+                var valid = $("#signUp").valid();
+                if (valid) {
+                  /*  if ($(".phone").intlTelInput("isValidNumber")) {
+
+                        return true;
+
+                        //var form =  $(this).serialize();
+                    } else {
+                        $('.phone').focus();
+                        e.preventDefault();
+
+                        return false;
+                    }*/
+                } else {
+                    e.preventDefault();
+                }
+            });
+            $('#signUp').validate({
+                rules: {
+                    'confirm_password': 'required',
+                    'password': {
+                        required: true,
+                        minlength: 6
+                    },
+
+                    'user_name': 'required',
+                    'first_name': 'required',
+                    'last_name': 'required',
+                   // 'age': 'required',
+                   // 'goal': 'required',
+                   // 'WOD_routine':'required',
+                    'email': {
+                        required: true,
+                        email: true
+                    },
+                   // 'height': 'required',
+                   // 'weight': 'required',
+                   // 'waist': 'required',
+                   // 'fitness': 'required',
+                 'staus': 'required',
+                    'package': 'required',
+                    'confirm_password': {
+                        equalTo: '[name="password"]'
+                    },
+                  /*  'phone': {
+                        required: true,
+                        minlength: 10
+
+                    },*/
+
+                },
+                messages: {
+                    user_name: {
+                        required: "User name can't be blank"
+                    },
+                    /* goal: {
+                        required: "Goal Field can't be blank"
+                    },*/
+                    staus: {
+                        required: "Click on checkbox if you are agree with our term and conditions"
+                    },
+                    first_name: {
+                        required: "First name can't be blank"
+                    },
+                    last_name: {
+                        required: "Last name can't be blank"
+                    },
+                    email: {
+                        required: "Email can't be blank"
+                    },
+                    package: {
+                        required: "Please choose at least one package"
+                    },
+                    confirm_password: {
+                        equalTo: "Password Confirmation does not match"
+                    },
+                    password: {
+                        required: "Password can't be blank",
+                        minlength: "Password should be at least {0} characters long"
+                    }
+                    /*phone: {
+                        required: "Phone number can't be blank",
+                        minlength: "must be at least {0} digits"
+                        // <-- removed underscore
+                    },
+                     height: {
+                        required: "Height can't be blank"
+                    },
+                     weight: {
+                        required: "Weight can't be blank"
+                    },
+                    age: {
+                        required: "Age can't be blank"
+                    },
+                     waist: {
+                        required: "Waist can't be blank"
+                    },
+                     fitness: {
+                        required: "Please Choose your fitness level"
+                    },
+                     WOD_routine: {
+                        required: "WOD can't be blank"
+                    }*/
+                    
+                    
+                },
+
+
+            });
+
+/*
+                     $(function validate() {
+
+    var rules = {
+        rules: {
+            weight: {
+                minlength: 2,
+                maxlength: 50,
+                required: true
+            },
+        },
+        errorPlacement: function (error, element) {
+            var name = $(element).attr("name");
+            error.appendTo($("#" + name + "_validate"));
+            $('.Phon_err').append('error show');
+        },
+    };
+
+    $('#signUp').validate(rules);
+ e.preventDefault();
+});*/
+            /********end of signUp form validation *********/
+
+
+            /*************For phone valid******/
+            var telInput = $("#phone"),
+                errorMsg = $("#error-msg"),
+                validMsg = $("#valid-msg");
+
+            // initialise plugin
+            telInput.intlTelInput({
+                utilsScript: "../js/mobileValid/utils.js"
+            });
+
+            var reset = function() {
+                telInput.removeClass("error");
+                errorMsg.addClass("hide");
+                validMsg.addClass("hide");
+            };
+
+            // on blur: validate
+            telInput.blur(function() {
+                reset();
+                if ($.trim(telInput.val())) {
+                    //alert($.trim(telInput.val()));
+                    if (telInput.intlTelInput("isValidNumber")) {
+                        validMsg.removeClass("hide");
+                    } else {
+                        telInput.addClass("error");
+                        errorMsg.removeClass("hide");
+                    }
+                }
+            });
+
+            // on keyup / change flag: reset
+            telInput.on("keyup change", reset);
+            /************end***********/
+
+
+            $("#phone").on("blur keyup change", function() {
+                if ($(this).val() == '') {
+                    var getCode = $("#phone").intlTelInput('getSelectedCountryData').dialCode;
+                    $(this).val('+' + getCode);
+                }
+            });
+            $(document).on("click", ".country", function() {
+                if ($("#phone").val() == '') {
+                    var getCode = $("#mobile-number").intlTelInput('getSelectedCountryData').dialCode;
+                    $("#phone").val('+' + getCode);
+                }
+            });
+
+
+
+
+        });
+    </script>
+
+
+
+
+<div class="container">
+        <div class="login_main">
+        <h1 class="section_heading" style="color:; padding-bottom:;">Register</h1>
+
+            <!-- show any messages that come back with authentication -->
+          
+<div id="wpcf7-f23-o1" class="wpcf7" dir="ltr" lang="en-US">
+                    <!-- LOGIN FORM -->
+                    <form action="/signup" method="post" id="signUp" class="wpcf7-form row">
+
+    <div class="contactform col-sm-12 animated tada visible" data-animation-delay="600" data-animation="tada">
+     
+                    <div class="col-sm-offset-3 col-sm-6 register">
+
+  <% if (message.length > 0) { %>
+                <div class="alert alert-danger">
+                    <%= message %>
+                </div>
+                <% } %>
+                
+                        <input type="hidden" class="form-control cnty_Nm" name="country_name">
+                        <div class="form-group">
+                            <!--label>User Name</label-->
+                            <input type="text" class="form-control" name="user_name" placeholder="User Name">
+                        </div>
+
+                        <div class="form-group">
+                            <!--label>First Name</label-->
+                            <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                        </div>
+
+                        <div class="form-group">
+                            <!--label>Last Name</label-->
+                            <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                        </div>
+
+                        <div class="form-group">
+                            <!--label>Email</label-->
+                            <input type="email" class="form-control" value=" " data-provide="typeahead" autocomplete="off" name="email" placeholder="Email">
+                        </div>
+
+                        <div class="form-group">
+                            <!--label>Password</label-->
+                            <input type="password" class="form-control" id="txtPassword" value="" data-provide="typeahead" autocomplete="off" name="password" placeholder="Password">
+                        </div>
+
+                        <input type="hidden" class="form-control" value="user" name="role">
+                        <input type="hidden" class="form-control" value="0" name="status">
+
+                        <div class="form-group">
+                            <!--label>Confirm Password</label-->
+                            <input type="password" class="form-control" id="txtConfirmPassword" name="confirm_password" placeholder="Confirm Password">
+                            <span class="LayMesg err"></span>
+                        </div>
+
+                      <!--   <div class="form-group parentsDiv">
+                            <label>Phone</label>
+                            <input type="tel" class="form-control phone" id="phone" name="phone">
+                            <span id="valid-msg" class="hide">✓ Valid</span>
+                            <span id="error-msg" class="hide">Invalid number</span>
+
+                            <span class="LayMesg err Phon_err"></span>
+                        </div> -->
+
+                         <div class="form-group">
+                            <!--label>Select Your Package</label-->
+                        
+                    <select name="package" class="form-control">
+ <option value="">Select Package</option>
+                       <% plans.forEach(function(Plan) { %>   
+                  <option value="<%=Plan.id %>" <% if(planId){ if(planId == Plan.id){%> selected="selected"<% } }%>><%=Plan.plan_name + ' (' + Plan.currency + Plan.price +') for ' + Plan.plan_duration + ' duration'%></option>
+
+                        
+          <% }); %>
+                </select>
+          </div>
+         <!--  <div class="form-group parentsDiv">
+                            <label>Age</label>
+                            <input type="text" class="form-control age" name="age">Yr
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+             <div class="form-group parentsDiv">
+                            <label>Height</label>
+                            <input type="text" class="form-control height" name="height">in/cm
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+             <div class="form-group parentsDiv">
+                            <label>Weight</label>
+                            <input type="text" class="form-control weight" name="weight">lb/kg
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+              <div class="form-group parentsDiv">
+                            <label>Waist</label>
+                            <input type="text" class="form-control waist" name="waist">in/cm
+                             <span class="LayMesg err Phon_err"></span>
+             </div> -->
+
+                 <!--  <div class="form-group">
+                            Fitness Levels 
+                            <label>
+            <input type="radio" value="Beginner" name="fitness">Lifestyle (Beginner)</label>
+
+             <label>
+            <input type="radio"  value="intermediate" name="fitness">Performance (intermediate)</label>
+
+            <label>
+            <input type="radio"  value="advanced" name="fitness">Competitor (advanced)</label>
+                        </div>
+
+                           <div class="form-group">
+                            Goal  
+                            <label>
+            <input type="radio" value="Body Composition or Weight Goal" name="goal">Body Composition or Weight Goal</label>
+
+             <label>
+            <input type="radio"  value="Performance Goal" name="goal">Performance Goal</label>
+
+            <label>
+            <input type="radio"  value="Accountability Goal" name="goal">Accountability Goal</label>
+                        </div>
+
+
+                                <div class="form-group">
+                            WOD Routine :  
+                            <label>
+            <input type="radio" value="Daily WOD" name="WOD_routine">Daily WOD</label>
+
+             <label>
+            <input type="radio"  value="Travel WOD on Your way" name="WOD_routine">Travel WOD on Your way</label>
+                        </div>
+ -->
+
+
+        <div class="form-group">
+            <input class="term_check" type="checkbox"  name="staus"><label>I Agree with all term and conditions</label>
+            <span class="login_text pull-right">Already have an account?  <a href="/login">Login </a></span>
+        </div>
+
+      
+                    <div class="submitbtn">
+                    <p><input class="wpcf7-form-control wpcf7-submit btn100" value="Register" type="submit"></p>
+                    </div>
+                    <p class="section_slogan or" style="color:;">OR</p>
+                     <p class="text-center">
+                     <a class="fb_btn" href="/auth/facebook"><img src="frontend/images/fb_signup.jpg" alt="fb img" /></a>
+                      <!--a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a-->
+                    </p>
+
+
+    </div>
+</div>
+ </form>
+</div>
+
+</div>
+</div>

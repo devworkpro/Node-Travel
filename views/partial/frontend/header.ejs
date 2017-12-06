@@ -1,0 +1,357 @@
+<style type="text/css">
+   .modal-content.plansa {
+   border: 2px solid #00b8df;
+   border-radius: 0;
+   }
+   .modal-title.titelss {
+   color: #444;
+   text-align: center;
+   text-transform: capitalize;
+   }
+   .pll {
+   font-size: 17px;
+   font-weight: 700;
+   }
+   .wod-rtn {
+   font-size: 17px;
+   font-weight: 700;
+   }
+   .form-group.PLANS > label {
+   font-weight: 400;
+   }
+   .form-group.woddd > label{
+   font-weight: 400;
+   }
+</style>
+<%  if(user){
+   if(user.facebook){
+   if(user.local.plan_id || user.local.role =='admin'){
+     
+   }else if(!user.facebook.plan_id){
+    
+   %>
+<div id="myModal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content plansa">
+         <div class="modal-header adv">
+            <h3 class="modal-title titelss">Choose your Plan </h3>
+         </div>
+         <div class="modal-body md-bd">
+            <form action ="/postPlan" method="POST" id="postPlan">
+               <div class="form-group PLANS">
+               </div>
+               <div class="butn"></div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<script type="text/javascript">
+   $(window).on('load',function(){
+   $.ajax({
+            type: 'POST',
+               contentType: 'application/json',
+               url: '/findPlans',
+               success: function(data) {
+                 if(data){
+                  
+                   JSON.stringify(data);
+   var elements = [];
+            $.each( data, function( key, value ) {
+                 elements.push('<label> <input type="radio" value="'+ value._id + '" name="package">' +value.plan_name + ' ( '+ value.currency + value.price +') for ' + value.plan_duration + ' duration</label>');
+   
+                 });
+        
+          $('.PLANS').append(elements);
+          $('.butn').append('<input type="submit" value="Submit Plan" class="wpcf7-submit">');
+              
+     $('#myModal').modal({backdrop: 'static', keyboard: false});  
+       $('#myModal').modal('show');
+        }
+      }
+               });
+   
+   });
+</script>
+<% } } %>
+<% }%>
+<script>
+   $(document).ready( function (){
+      /********postPlan form validation *********/
+              $('#postPlan').submit(function(e) {
+                  var valid = $("#postPlan").valid();
+                  if (valid) {
+                 
+                  } else {
+                      e.preventDefault();
+                  }
+              });
+              $('#postPlan').validate({
+                  rules: {
+                      'package': 'required'
+                  },
+                  messages: {
+                     
+                       package: {
+                          required: "Please Choose your package"
+                      }     
+                  },
+              });
+              /********end of form validation *********/
+   });
+</script>
+<% if(user){ if(user.facebook.plan_id || user.local.plan_id){ 
+   %>
+<script type="text/javascript">
+   $(window).on('load',function(){
+   $.ajax({
+               type: 'POST',
+               contentType: 'application/json',
+               url: '/OnWeekOld',
+               success: function(data) {
+                 if(data !== 'false'){
+                  JSON.stringify(data);
+   var elements = [];
+            $.each( data, function( key, value ) {
+                if(value.plan_name != 'Free Trial'){
+                
+                   elements.push('<label> <input type="radio" value="'+ value._id + '" name="package">' +value.plan_name + ' ( '+ value.currency + value.price +') for ' + value.plan_duration + ' duration </label>');
+   }
+                 });
+          $('.PLANo').append(elements);
+          $('.butno').append('<input type="submit" value="Submit Plan" class="wpcf7-submit">');
+            $('#myNewModal').find('.modeHead').text('Your trial version is completed Now.'); 
+            $('#myNewModal').find('.modealSec').text('Choose your Plan');     
+   
+     $('#myNewModal').modal({backdrop: 'static', keyboard: false});  
+       $('#myNewModal').modal('show');
+        }else{
+         
+   $.ajax({
+               type: 'POST',
+               contentType: 'application/json',
+               url: '/checkPayment',
+               success: function(data) {
+                 if(data){
+                      console.log(data);  
+                  JSON.stringify(data);
+   var elements = [];
+            $.each( data.allPlan, function( key, value ) {
+                if(value.plan_name != 'Free Trial'){
+                
+                   elements.push('<label> <input type="radio" value="'+ value._id + '" name="package">' +value.plan_name + ' ( '+ value.currency + value.price +') for ' + value.plan_duration + ' duration</label>');
+   }
+                 });
+        
+          $('.PLANo').append(elements);
+          $('.butno').append('<input type="submit" value="Submit Plan" class="wpcf7-submit">');
+            $('#myNewModal').find('.modeHead').text('Please select plan and complete your Payment'); 
+       $('#myNewModal').modal({backdrop: 'static', keyboard: false});  
+       $('#myNewModal').modal('show');
+                 }
+   
+   }
+   });
+   }
+   }
+               });
+   });
+   
+</script>
+<% } } %>
+<div id="myNewModal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content plansa">
+         <div class="modal-header">
+            <h3 class="modal-title modeHead text-center"></h3>
+            <h3 class="modal-title modealSec"></h3>
+         </div>
+         <div class="modal-body ">
+            <!--div class="pll">Plans :</div-->  
+            <form action ="/postPlan" method="POST" id="postPlan">
+               <div class="form-group PLANo">                                 
+               </div>
+               <div class="butno"></div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="container">
+   <div class="head">
+      <div class="row">
+         <div class="col-md-3">
+            <div class="logo"> <a href="/"> <img src="../frontend/images/logo.png" alt="logo"></a> </div>
+            <!--logo-->
+         </div>
+         <div class="col-md-9">
+            <div class="head_nav">
+               <div class="row">
+                  <div class="col-sm-12 col-xs-12 col-md-12">
+                     <nav class="navbar navbar-default">
+                        <div>
+                           <div class="navbar-header">
+                              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                           </div>
+                           <div class="collapse navbar-collapse padding-r" id="bs-example-navbar-collapse-1">
+                              <ul class="nav navbar-nav hedd">
+                                 <% if(status != false){ %>
+                                 <li><a href="/userDashboard">Home</a> </li>
+                                 <% }else{ %> 
+                                 <li><a href="/">Home</a> </li>
+                                 <% } %>
+                                 <li><a href="/dailyWorkOut">Daily WOD</a> </li>
+                                 <li><a href="/travelWorkOut">WOD your own way</a> </li>
+                                 <li class='contScroll'><a href="/contactUs">Contact</a> </li>
+                                 <li><a href="/blog">Blog</a> </li>
+                                 <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle waves-effect waves-button waves-classic belhid" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge badge-success pull-right totalNot"></span></a>
+                                    <ul class="dropdown-menu title-caret dropdown-lg" role="menu">
+                                       <li class="dropdown-menu-list slimscroll tasks">
+                                          <ul class="list-unstyled showNot">
+                                          </ul>
+                                       </li>
+                                       <li class="drop-all"><a href="#" class="text-center">All Notifications</a></li>
+                                    </ul>
+                                 </li>
+                                 <li>
+                                    <div class="user pull-right dropdown main_detail_1 p0">
+                                       <a href="#" class="dropdown-toggle goProfile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
+                                       <% if(user){
+                                          if(user.local.photo){ %>
+                                       <img src="./uploads/images/<%= user.local.photo %>" class="showProImg">
+                                       <% }else  if(user.facebook.photo){ %>
+                                       <img src="./uploads/images/<%= user.facebook.photo %>" class="showProImg">  
+                                       <% }else{ %>
+                                       <img src="../images/admin/1.jpg" class="showProImg">   
+                                       <% }} else{ %>
+                                       <img src="../images/admin/1.jpg" class="showProImg">   
+                                       <% } %>
+                                       </a> 
+                                       <!--user-->
+                                       <ul class="dropdown-menu">
+                                          <% if(status != false){ %>
+                                          <li><a href="/profile"><span>Profile</span></a></li>
+                                          <% } %>
+                                          <li><a href="/community">Community Dashboard</a></li>
+                                          <% if(status != false){ %>
+                                          <li><a href="/logout">Log Out</a> </li>
+                                          <% }else{ %> 
+                                          <li><a href="/login">Log In</a> </li>
+                                          <li><a href="/signup">Sign Up</a> </li>
+                                          <% } %>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                           <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container-fluid -->
+                     </nav>
+                  </div>
+               </div>
+            </div>
+            <!--head_nav-->
+         </div>
+      </div>
+      <!--row-->
+   </div>
+   <!--head-->
+</div>
+<% if(user){ %>
+<script type="text/javascript">
+   window.status ='no';
+     $(document).ready(function() {
+   function isElementVisible(elem)
+       {
+     var $elem = $(elem);
+     if($elem){
+     var $window = $('.showNot');
+   
+     var docViewTop = $window.scrollTop();
+     var docViewBottom = docViewTop + $window.height();
+   
+     var elemTop = $elem.offset().top;
+     var elemBottom = elemTop + $elem.height();
+   
+     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+   }
+   }
+   /*setInterval("ajaxd()",10000);*/
+   
+      $(document).on("click", ".belhid", function(event) {
+   $('.totalNot').text('');
+     });
+   $(window).scroll(function(){
+   
+     if(window.status == 'no'){
+     var e = $('.showNot li:last');
+   if($('.showNot li').length){
+     if (isElementVisible(e)) {
+        
+        window.status = 'yes';
+          var lastId = $('.showNot').find('li:last').find('.lastId').val();
+          if(lastId){
+             $.ajax({
+                   url: '/loadMoreNotifictn?id='+lastId,
+                   type: 'POST',
+               success: function(msg){
+                 
+      if($.trim(msg) != 'err'){
+       
+     $( ".showNot" ).append(msg);
+    }
+      window.status = 'no';
+   }
+         
+     });
+             }
+   
+   }
+   }
+     
+   }
+     })
+   
+     });
+   
+   /*function ajaxd() { 
+   
+   var lastId = $('.showNot').find('li:first').find('.lastId').val();
+   //alert(lastId);
+   if(lastId){
+   var last = lastId
+   }else{
+    var last = 'no';
+   }
+   $.ajax({
+    type: "POST",
+    url: "/notification?id="+last,
+    success: function(msg){
+
+     if($.trim(msg) != 'err'){
+     $( ".showNot" ).prepend(msg);
+     var getRes =  $('.totalNot').text();
+   var count = $( ".showNot" ).find( ".toShW:first" ).val();
+   
+   if(count > 0 || count != 'not' ){
+     if(getRes){
+         count = parseInt(getRes) + parseInt(count) 
+     }
+      $('.totalNot').text(count);
+     
+   
+   }else{
+     $('.totalNot').text('')
+   }
+    }
+   }
+   });
+   }*/
+</script>
+<% } %>
+

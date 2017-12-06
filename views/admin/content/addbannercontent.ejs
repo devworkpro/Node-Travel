@@ -1,0 +1,73 @@
+
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+        $('#categoryAdd').submit(function(e) {
+          
+            var valid = $("#categoryAdd").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#categoryAdd').validate({
+            rules: {
+                'name': 'required',
+             },
+            messages: {
+                name: {
+                    required: "Name can't be blank"
+                }
+           }
+
+        });
+});
+
+
+/********end of form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+           <div id="main-wrapper">
+                <div class="row m-t-md">
+                 <div class="col-sm-2"></div>
+                 <div class="col-sm-8 col-sm-offset-3">
+                    <h1 class="sign-user">Add Banner</h1>
+
+            
+
+                    <!-- LOGIN FORM -->
+                    <form action="/addbanner_info" method="POST" id="categoryAdd" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Banner Heading </label>
+                            <input type="text" class="form-control" name="banner_heading" >
+                        </div>
+                        <div class="form-group">
+                            <label>Banner Subheading </label>
+                            <input type="text" class="form-control" name="banner_subheading" >
+                        </div>
+                        
+                        
+                        
+                        <div class="form-group">
+                            <label>Banner Image</label>
+                           
+                            <input type="file" class="form-control " id="e_Img_file" name=" banner_image">
+
+
+                            
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+
+                    </form>
+                </div>
+            </div>
+             </div>
+            </div>
+             </div>
+            

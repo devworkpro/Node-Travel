@@ -1,0 +1,48 @@
+<!-- views/login.ejs -->
+
+  <style>
+  .alert.alert-danger.DNG {
+  margin: 0 auto 35px;
+  width: 100%;
+}
+</style>       
+
+                    <!-- LOGIN FORM -->
+
+<div class="container">
+
+        <div class="login_main">
+        <h1 class="section_heading" style="color:; padding-bottom:;">Login</h1>
+ 
+        <div id="wpcf7-f23-o1" class="wpcf7" dir="ltr" lang="en-US">
+    
+           
+            <form class="wpcf7-form row" action="/login" autocomplete="off" method="POST" novalidate="novalidate">
+                <div class="contactform col-sm-12 animated tada visible" data-animation-delay="600" data-animation="tada">
+                 
+                    <div class="col-sm-offset-3 col-sm-6 login-width">
+
+                     <% if (message.length > 0) { %>
+                <div class="alert alert-danger DNG">
+                    <%= message %>
+                </div>
+                <% } %>
+
+                    <p><span class="wpcf7-form-control-wrap your-name"><input name="user_name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Username" type="text"></span> </p>
+                    <p><span class="wpcf7-form-control-wrap your-subject"><input name="password" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Password" type="password"></span> </p>
+                    <p class="login_text"><span><a href="/forgot">Forgot password?</a></span> Don’t have an account yet? <a href="/signup">Sign up</a></p>
+                    <div class="submitbtn">
+                    <p><input class="wpcf7-form-control wpcf7-submit btn100" value="Login" type="submit"></p>
+                    </div>
+                    <p class="section_slogan or" style="color:;">OR</p>
+                     <p class="text-center">
+                      <a class="fb_btn" href="/auth/facebook"><img src="frontend/images/fb_signin.jpg" alt="fb img" /></a>
+                 
+                    </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+        </div><!-- login_main -->
+    </div>

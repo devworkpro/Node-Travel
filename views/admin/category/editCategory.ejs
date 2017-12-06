@@ -1,0 +1,60 @@
+
+
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+        $('#categoryAdd').submit(function(e) {
+          
+            var valid = $("#categoryAdd").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#categoryAdd').validate({
+            rules: {
+                'name': 'required',
+             },
+            messages: {
+                name: {
+                    required: "Name can't be blank"
+                }
+           }
+
+        });
+});
+
+
+/********end of form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+
+<div class="page-inner">
+
+   <div id="main-wrapper">
+   <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+      <div class="container">
+        <div class="row m-t-md">
+            <h1>Edit category</h1>
+
+                
+                    <form action="/updateCategory?id=<%= editCat.id %>" method="POST" id="categoryAdd">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" value="<%= editCat.name %>">
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+
+                    </form>
+                </div>
+            </div>
+             </div>
+            </div>
+             </div>
+        

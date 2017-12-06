@@ -1,0 +1,99 @@
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+        $('#planAdd').submit(function(e) {
+          
+            var valid = $("#planAdd").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#planAdd').validate({
+            rules: {
+                'plan_name': 'required',
+                'price': 'required',
+                'currency': 'required',
+                'plan_duration': 'required'
+             },
+            messages: {
+                plan_name: {
+                    required: "Plan can't be blank"
+                },
+                price: {
+                    required: "Price can't be blank"
+                },
+                currency: {
+                    required: "Currency can't be blank",
+                  }, 
+                plan_duration: {
+                    required: "Plan Duration can't be blank"
+                }
+           }
+
+        });
+});
+
+
+/********end of form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+       <div id="main-wrapper">
+              <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8 add-plan-form">
+                <div class="row m-t-md">
+                    <h1 class="add-plan-heading">Edit Plans</h1>
+
+
+            
+
+                    <!-- LOGIN FORM -->
+                    <form action="/updatePlan?id=<%=editPlan.id %>&status=update" method="POST" id="planAdd">
+                        <div class="form-group">
+                            <label>Plan Name</label>
+                            <input type="text" class="form-control" value="<%= editPlan.plan_name %>" name="plan_name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" class="form-control phone" name="price" value="<%= editPlan.price %>">
+                            <span class="Phon_err"></span>
+                        </div>
+
+                         <div class="form-group">
+                            <label>Plan Currency</label>
+                            <select class="form-control" name="currency" value="<%= editPlan.currency %>">
+                           
+                            <option value="$">$</option>
+                          
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Plan Duration</label>
+                            <select class="form-control" name="plan_duration">
+                            <option value="">Select Plan Duration</option>
+                            <option value="1 Week">1 Week</option>
+                            <% for($i=1;$i<=12;$i++){%>
+                          
+                            <option <% if(editPlan.plan_duration == $i + ' Month'){%>selected="selected"<%}%> value="<%= $i %> Month"><%= $i %> Month</option>
+                             <%}%>
+                          </select>
+                        </div>
+
+
+
+                        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+
+                    </form>
+                </div>
+            </div>
+            </div>
+            </div>

@@ -1,0 +1,120 @@
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+  <style>
+  .video
+  {
+  	cursor: pointer;
+  }
+  .morecontent span {
+    display: none;
+}
+.morelink {
+    display: block;
+}
+</style>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // Configure/customize these variables.
+    var showChar = 100;  // How many characters are shown by default
+    var ellipsestext = "...";
+    var moretext = "Show more >";
+    var lesstext = "Show less";
+    
+
+    $('.more').each(function() {
+        var content = $(this).html();
+ 
+        if(content.length > showChar) {
+ 
+            var c = content.substr(0, showChar);
+            var h = content.substr(showChar, content.length - showChar);
+ 
+            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+ 
+            $(this).html(html);
+        }
+ 
+    });
+ 
+    $(".morelink").click(function(){
+        if($(this).hasClass("less")) {
+            $(this).removeClass("less");
+            $(this).html(moretext);
+        } else {
+            $(this).addClass("less");
+            $(this).html(lesstext);
+        }
+        $(this).parent().prev().toggle();
+        $(this).prev().toggle();
+        return false;
+    });
+});
+
+</script>
+
+<div class="container">
+		<div class="login_main">
+		<h1 class="section_heading" style="color:; padding-bottom:;">Workout Video</h1>
+		<div class="video_sec">
+			<div class="row">
+
+		<%	
+    //data-target="#videoModal
+JSON.stringify(workouts);
+    workouts.forEach( function(WOD){ %>
+				<div class="col-xs-12 col-sm-4 valGet">
+       
+					<div class="video" data-video="<%= WOD.video_link %>" poster="./uploads/video/<%= WOD.video_img %>" data-toggle="modal">
+ <a href="/workOut?id=<%= WOD.id %>" target="blank">
+						<div class="video_head">
+						<h3><%= WOD.video_title %></h3>
+						</div><!-- video_head -->
+
+				<img src="./uploads/video/<%= WOD.video_img %>">	
+ <img class="dash_video_img" src="../frontend/images/video_play_overlay.png" alt="video_img">
+						<div class="video_content">
+					<!-- 	<p class="desVide"> --><!-- <span class="more">
+						<%= WOD.video_des %> </span> -->
+<span class="more">
+               <%
+               if(WOD.video_des){
+ var clean = sanitizeHtml(WOD.video_des, {
+  allowedTags: [ 'h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+  'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+  'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre','span','img' ],
+allowedAttributes: {
+  a: [ 'href', 'name', 'target', 'data-*','style', 'align', 'alt', 'center', 'bgcolor'],
+  span :['style'],
+  table : ['style','class','border','align'],
+  img: [ 'src','data:*','class','style','alt','align' ]
+}, 
+selfClosing: [ 'img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta' ],
+allowedSchemes: [ 'http', 'https', 'ftp', 'mailto'],
+allowedSchemesByTag: {},
+allowProtocolRelative: true
+}); %>
+<%- clean %>
+<%
+}
+ %>
+</span>
+						</div>
+             </a>
+					</div><!-- video -->
+				</div><!-- col-4 -->
+			<% }); %>
+				
+				
+			</div><!-- row -->
+		</div><!-- video_sec -->
+		</div><!-- login_main -->
+	</div>
+<style>
+.video {
+    cursor: pointer;
+    min-height: 480px;
+    background: #fff;
+}
+</style>

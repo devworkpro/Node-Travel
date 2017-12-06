@@ -1,0 +1,182 @@
+ <!-- stopWatch -->
+
+<!-- css -->
+<link id="styleSheet0" rel="stylesheet" type="text/css" href="../frontend/css/stopWatch/light.css">
+
+<link id="styleSheet1" rel="stylesheet" type="text/css" href="../frontend/css/stopWatch/common.css">
+
+<!-- js -->
+<script src="../frontend/js/stopWatch/jsCookie.js" type="text/javascript"></script>
+<script src="../frontend/js/stopWatch/index.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- drag div -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <style>
+  #draggable { width: 150px; height: 150px; padding: 0.5em; }
+  </style>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#draggable" ).draggable();
+  } );
+  </script>
+
+<div id="draggable" class="ui-widget-content">
+  <p>Drag StopWatch AnyWhere</p>
+  <div class="" id="">
+<form>
+  Light
+  <input type="radio" name="theme" value="../frontend/css/stopWatch/light.css">
+  Dark
+  <input type="radio" name="theme" value="../frontend/css/stopWatch/dark.css">
+</form>
+
+<!-- end stopWatch -->
+
+<div id="timer"></div>
+<button id="startButton">Start</button>
+<button id="pauseButton">Pause</button>
+<button id="clearButton">Clear/Stop</button>
+<div id="additionalTime" style="display:none">0</div>
+</div>
+
+</div>
+<!-- end of drag div -->
+
+
+  <style>
+  .video
+  {
+  	cursor: pointer;
+  }
+</style>
+  <script>
+ $(document).ready( function (){
+    $(".video").click(function () {
+      var theModal = $(this).data("target");
+      var videoSRC = $(this).attr("data-video");
+      var videoTYPE =  $(this).parents('.valGet').find('.vidoCls').find('source').attr('type');
+       var videoPoster =  $(this).parents('.valGet').find('.vidoCls').attr('poster');
+      var videoSRCauto = './uploads/video/' + videoSRC;
+      $(theModal + ' video').attr('src', videoSRCauto);
+   $(theModal + ' video').attr('poster', videoPoster);
+
+      $(theModal + ' button.close').click(function () {
+        $(theModal + ' video').attr('src', videoSRC); 
+        $(theModal + ' source').attr('type', videoTYPE);
+      });
+    });
+  });
+  </script>
+
+<div class="container">
+		<div class="login_main">
+		<h1 class="section_heading" style="color:; padding-bottom:;">Workout Video</h1>
+		<div class="video_sec">
+			<div class="row">
+
+		<%	
+JSON.stringify(workouts);
+    workouts.forEach( function(WOD){ %>
+				<div class="col-xs-4 valGet">
+					<div class="video" data-video="<%= WOD.video_link %>" poster="./uploads/video/<%= WOD.video_img %>" data-toggle="modal" data-target="#videoModal">
+						<div class="video_head">
+						<h3><%= WOD.video_title %></h3>
+						</div><!-- video_head -->
+
+				<img src="./uploads/video/<%= WOD.video_img %>">	
+ 
+    <video width="100%" height="100%" class="embed-responsive-item vidoCls" controls poster="./uploads/video/<%= WOD.video_img %>" style="display:none">
+        <source src="./uploads/video/<%= WOD.video_link %>" type="video/wmv">
+        <source src="./uploads/video/<%= WOD.video_link %>" type="video/mp4">
+         <source src="./uploads/video/<%= WOD.video_link %>" type="video/mp3">
+
+    </video>
+ 
+
+						<div class="video_content">
+						<p class="desVide">
+						<%= WOD.video_des %> </p>
+						<!-- <p><a href="javascript:void(0)">Read More <i class="fa fa-angle-double-right"></i></a></p> -->
+						</div>
+					</div><!-- video -->
+				</div><!-- col-4 -->
+			<% }); %>
+			
+			
+			
+				
+			</div><!-- row -->
+		</div><!-- video_sec -->
+		</div><!-- login_main -->
+	</div>
+ <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <video width="100%" height="400px" loop class="embed-responsive-item" controls>
+        <source src="">
+    </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  	$(document).ready( function (){
+  		 var maxLength = 100;
+      
+  $(".desVide").each(function(){
+  	  var myStr = $('.desVide').text();
+        if($.trim(myStr).length > maxLength){
+
+            var newStr = myStr.substring(0, maxLength);
+
+            var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+
+            $(this).empty().html(newStr);
+
+            $(this).append(' <a href="javascript:void(0);" class="read-more">read more...</a>');
+
+            $(this).append('<span class="more-text">' + removedStr + '</span>');
+           // $('.desVide .more-text').hide();
+
+        }
+  	});
+
+      $(".read-more").click(function(){
+
+        $(this).siblings(".more-text").contents().unwrap();
+
+        $(this).remove();
+
+    });
+
+  });
+  </script>
+  <style type="text/css">
+
+    .desVide .more-text{
+
+        display: none;
+
+    }
+
+</style>

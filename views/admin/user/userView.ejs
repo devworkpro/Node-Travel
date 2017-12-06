@@ -1,0 +1,59 @@
+<style type="text/css">
+  .user-profile-2 span {
+    display: inline-block;
+    font-weight: 600;
+    width: 100px !important;
+
+}
+.col-sm-8.user-profile-2 {
+    background: #fff none repeat scroll 0 0;
+    padding: 20px;
+}
+.col-sm-6.pp > p {
+    text-transform: capitalize;
+}
+.usse {
+    margin-bottom: 60px;
+    text-align: center;
+}
+</style>
+ <div class="page-inner">
+
+   <div id="main-wrapper">
+   <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+      <div class="row m-t-md">
+       <h1 class="usse">User </h1>
+
+    <!-- List all user in  FORM -->
+    <div class="col-sm-2"></div>
+
+<div class="col-sm-8 user-profile-2">
+<div class="col-sm-6">
+
+    <% if(usersView.local.photo){ %>
+<img src="./uploads/images/<%= usersView.local.photo %>" style="width:200px">
+<% }else{ %>
+  <img src=" ../images/admin/1.jpg" >
+<% }%>
+
+</div>
+<div class="col-sm-6 pp">
+   <p><span>User Name :</span><%= usersView.local.user_name; %></p>
+    <p> <span>First Name:</span><%= usersView.local.first_name; %></p>
+    <p><span>Last Name:</span><%= usersView.local.last_name; %></p>
+    <p> <span> Email:</span><%= usersView.local.email; %></p>
+     <p><span>Phone:</span><%= usersView.local.phone; %></p>
+     <p><span>Package:</span><%= usersView.local.package; %></p>
+    
+     <p><span>Height :</span><%= usersView.local.height; %></p>
+       <p><span>Waist :</span> <%= usersView.local.waist; %></p>
+    <p><span> Fitness:</span><%= usersView.local.fitness; %></p>
+     <p><span> Country:</span><%= usersView.local.country; %></p>
+  </div>
+  </div>
+  <div class="col-sm-2"></div>
+</div>
+</div>
+</div>
+
+

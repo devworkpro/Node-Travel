@@ -1,0 +1,59 @@
+
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+        $('#categoryAdd').submit(function(e) {
+          
+            var valid = $("#categoryAdd").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#categoryAdd').validate({
+            rules: {
+                'name': 'required',
+             },
+            messages: {
+                name: {
+                    required: "Name can't be blank"
+                }
+           }
+
+        });
+});
+
+
+/********end of form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+           <div id="main-wrapper">
+           <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+                <div class="row m-t-md">
+                 <div class="col-sm-2"></div>
+                 <div class="col-sm-8 col-sm-offset-3">
+                    <h1 class="sign-user">Add Category</h1>
+
+            
+
+                    <!-- LOGIN FORM -->
+                    <form action="/add_category" method="POST" id="categoryAdd">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+
+                    </form>
+                </div>
+            </div>
+             </div>
+            </div>
+             </div>
+            

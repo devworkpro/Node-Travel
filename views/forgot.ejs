@@ -1,0 +1,29 @@
+<!-- forgot -->
+
+<div class="container">
+
+        <div class="login_main">
+        <h1 class="section_heading" style="color:; padding-bottom:;">LET'S RESET PASSWORD.</h1>
+ 
+        <div id="wpcf7-f23-o1" class="wpcf7" dir="ltr" lang="en-US">
+           <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger">
+                    <%= message %>
+                </div>
+                <% } %>
+
+
+<form class="wpcf7-form" action="/forgot" method="POST" novalidate="novalidate">
+
+<div class="contactform col-sm-12 animated tada visible" data-animation-delay="600" data-animation="tada">
+  <div class="col-sm-offset-3 col-sm-6">
+<input type="email" placeholder="Enter Mail" name="email">
+<input type="submit" value="Reset Password" class="wpcf7-form-control wpcf7-submit btn100">
+<a href="/">Cancel</a>
+  </div>
+  </div>
+
+</form>
+</div>
+</div>

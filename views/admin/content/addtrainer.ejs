@@ -1,0 +1,82 @@
+
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+        $('#categoryAdd').submit(function(e) {
+          
+            var valid = $("#categoryAdd").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#categoryAdd').validate({
+            rules: {
+                'name': 'required',
+             },
+            messages: {
+                name: {
+                    required: "Name can't be blank"
+                }
+           }
+
+        });
+});
+
+
+/********end of form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+           <div id="main-wrapper">
+                <div class="row m-t-md">
+                 <div class="col-sm-2"></div>
+                 <div class="col-sm-8 col-sm-offset-3">
+                    <h1 class="sign-user">Add Category</h1>
+
+            
+
+                    <!-- LOGIN FORM -->
+                    <form action="/addtrainer_info" method="POST" id="categoryAdd" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Trainer Name </label>
+                            <input type="text" class="form-control" name="trainer_name" >
+                        </div>
+                        <div class="form-group">
+                            <label>Trainer Facebook  </label>
+                            <input type="text" class="form-control" name="trainer_facebook" >
+                        </div>
+                        <div class="form-group">
+                            <label>Trainer Twitter  </label>
+                            <input type="text" class="form-control" name="trainer_twiter" >
+                        </div>
+                        <div class="form-group">
+                            <label>Trainer Twitter Google+  </label>
+                            <input type="text" class="form-control" name="trainer_google" >
+                        </div>
+                        <div class="form-group">
+                            <label>Traiing Type  </label>
+                            <input type="text" class="form-control" name="trainig_type" >
+                        </div>
+                        <div class="form-group">
+                            <label>Trainer profile</label>
+                           
+                            <input type="file" class="form-control " id="e_Img_file" name=" trainer_profile">
+
+
+                            
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+
+                    </form>
+                </div>
+            </div>
+             </div>
+            </div>
+             </div>
+            

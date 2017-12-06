@@ -1,0 +1,152 @@
+<style>
+.sidebar-profile img {
+    display: block;
+    height: 60px;
+    margin: 0 auto;
+    width: 60px;
+}
+/*.slimScrollDiv{
+     min-height: 750px;
+}*/
+</style>
+<div class="page-sidebar sidebar">
+    <div class="page-sidebar-inner slimscroll">
+        <div class="sidebar-header">
+            <div class="sidebar-profile">
+                <a href="/profile">
+                    <div class="sidebar-profile-image ima">
+              
+ <% if(user){ %>
+                    <%   if(user.photo) { %>
+<img src="./uploads/images/<%= user.photo %>" class="img-circle">
+<% } else if(user.local.photo){ %>
+<img src="./uploads/images/<%= user.local.photo %>" class="img-circle">
+<% }else{ %>
+ <img src="../images/admin/1.jpg" class="img-circle">
+ <% } } %>
+
+                    </div>
+                    <div class="sidebar-profile-details">
+                 <span class="caps">
+                        <% if(user.user_name){ %>
+                             <%= user.user_name %>
+ <% } else if(user.local.user_name){ %>  
+   <h1><%= user.local.user_name  %></h1>
+<% }else{ %>
+nothing
+<% } %> </span>
+
+                            <!--   <% if(user.user_name){ %><span class="caps"><%= user.user_name %></span><% } %> -->
+                    </div>
+                </a>
+            </div>
+        </div>
+        <ul class="menu accordion-menu">
+
+  <li class=""><a target="blank" href="/" class="waves-effect waves-button"><i class="fa fa-tripadvisor" aria-hidden="true"></i>
+<p>Visit Site</p></a></li>
+
+            <li class="active"><a href="/dashboard" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-home"></span><p>Dashboard</p></a></li>
+
+
+            <li class="droplink active"><a href="#" class="waves-effect waves-button"><span class="menu-icon glyphicon glyphicon-user"></span><p>Users</p><span class="arrow"></span></a>
+                <ul class="sub-menu">
+                    <li class="active"><a href="/add_user"><i class="fa fa-user-plus" aria-hidden="true"></i> Add User</a></li>
+                    <li><a href="/user_list"><i class="fa fa-list-alt" aria-hidden="true"></i> User List</a></li>
+
+                </ul>
+            </li>
+
+           <!-- blog section -->
+  <li class="droplink active"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-rss-square"></span><p>Blog</p><span class="arrow"></span></a>
+                <ul class="sub-menu">
+                <li class="active"><a target="blank" href="/blog">
+<i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Blog</a></li>
+                    <li><a href="/add_blog"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Blog</a></li>
+                    <li><a href="/blog_list"><i class="fa fa-list-alt" aria-hidden="true"></i> Blog List</a></li>
+
+                </ul>
+            </li>  <!-- end of blog section -->
+
+
+               <!-- comment section -->
+  <li class="droplink active"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-users"></span><p>Community</p><span class="arrow"></span></a>
+                <ul class="sub-menu">
+                <li class="active"><a target="blank" href="/community">
+<i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Community Dashboard</a></li>
+                    <li><a href="/add_post"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Post</a></li>
+                    <li><a href="/post_List"><i class="fa fa-list-alt" aria-hidden="true"></i> Post List</a></li>
+
+                </ul>
+            </li>  <!-- end of blog section -->
+
+<!-- end of community -->
+
+
+
+        
+            <!-- workout section -->
+             <li class="droplink active"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-pie-chart"></span><p>
+ WOD</p><span class="arrow"></span></a>
+                <ul class="sub-menu">
+                    <li class="active"><a href="/add_WOD"> <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+ Add WOD</a></li>
+                    <li><a href="/WOD_list"> <i class="fa fa-list-alt" aria-hidden="true"></i> WOD List</a></li>
+
+                </ul>
+            </li> 
+
+             <!-- Plan -->
+             <li class="droplink active"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-paper-plane-o"></span><p> Plans</p><span class="arrow"></span></a>
+                <ul class="sub-menu">
+                    <li class="active"><a href="/add_plan"> <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+ Add Plan</a></li>
+                    <li><a href="/plan_list"> <i class="fa fa-list-alt" aria-hidden="true"></i> Plan List</a></li> 
+                   
+
+                </ul>
+            </li> 
+<!-- dashboard content-->
+ <li class="droplink active"><a href="#" class="waves-effect waves-button"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+</span><p> Add content</p><span class="arrow"></span></a>
+                <ul class="sub-menu">
+                    <li class="active"><a href="/add_home_content"> <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+ Add </a></li>
+                    
+                   
+
+                </ul>
+            </li>
+<!-- dashboard content end-->
+
+             <!-- Plan -->
+             <li class="droplink active"><a href="#" class="waves-effect waves-button"><span class="menu-icon fa fa-filter"></span><p> Category</p><span class="arrow"></span></a>
+                <ul class="sub-menu">
+                    <li class="active"><a href="/add_category"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+ Add Category</a></li>
+                    <li><a href="/category_list"> <i class="fa fa-list-alt" aria-hidden="true"></i> Category List</a></li>
+                </ul>
+            </li> 
+
+
+        </ul>
+    </div>
+    <!-- Page Sidebar Inner -->
+</div>
+<!-- Page Sidebar -->
+</div>
+
+<style>.menu.accordion-menu a .fa {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+@media (min-width: 320px) and (max-width: 480px){
+   .slimScrollDiv{
+    position: relative;
+    overflow: scroll;
+    width: auto;
+    height: 100%;
+    z-index: 99;
+}
+}
+</style>

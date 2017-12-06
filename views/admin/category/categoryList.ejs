@@ -1,0 +1,52 @@
+
+<div class="page-inner">
+
+   <div id="main-wrapper">
+   <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+      <div class="container">
+        <div class="row m-t-md">
+            <h1>All Category List</h1>
+
+  
+
+            <% if (message.length > 0) { %>
+                <div class="alert alert-success">
+                    <%= message %>
+                </div>
+                <% } %>
+                <a href="/add_category"><button type="button" class="btn btn-info">Add Category</button></a>
+                    <!-- List all user in  FORM -->
+                    <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% $i = 1; %>
+                                <% catName.forEach(function(Category) { %>
+                                    <tr>
+                                        <td>
+                                            <%= $i; %>
+                                        </td>
+                                        <td>
+                                            <%= Category.name; %>
+                                        </td>
+                                       
+                                        <td><a href="/editCategory?id=<%= 
+                                        Category.id; %>">edit</a>/<a href="delCategory?id=<%= Category.id; %>" onclick="return confirm('Are you sure you want to delete that Category?');">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <% $i++; %>
+                                        <% }); %>
+                        </tbody>
+                    </table>
+        </div>
+    </div>
+</div>
+ </div>
+    </div>
+    

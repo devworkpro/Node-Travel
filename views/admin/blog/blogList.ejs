@@ -1,0 +1,87 @@
+
+
+<div class="page-inner">
+
+   <div id="main-wrapper">
+   <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+      <div class="container table-bblogg">
+        <div class="row m-t-md">
+            <h1>All Blog List</h1>
+
+            <% if (message.length > 0) { %>
+                <div class="alert alert-success">
+                    <%= message %>
+                </div>
+                <% } %>
+                 <a href="/add_blog"><button type="button" class="btn btn-info">Add Blog</button></a>
+                    <!-- List all user in  FORM -->
+                      <div class="table-responsive blog-table">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr > 
+                                <th>Sr.No</th>
+                                <th>Action</th>
+                                <th>Blog Title</th>
+                                <th>Blog Description</th>
+                                 <th>Tags</th>
+                         <!--        <th>Image</th> -->
+                                 <th>Action</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                          <% $i = 1; %>
+                                <% blogList.forEach(function(blog) {
+                               %>
+                                    <tr data-href="/readblog?id=<%- blog.id %>">
+
+
+                                        <td>
+                                        
+                                            <%= $i; %>
+                                        </td>
+                                        <td><a href="/deletBlog?id=<%-blog.id%>">Delete</a> / <a href="/readblog?id=<%- blog.id %>"> View </a></td>
+                                        <td><%= blog.title; %></td>
+                                        <td>
+                                       
+                        <%
+ var clean = sanitizeHtml(blog.message, {
+  allowedTags: [ 'h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul', 'ol',
+  'nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'br', 'div',
+  'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre','span','img' ],
+allowedAttributes: {
+  a: [ 'href', 'name', 'target', 'data-*','style', 'align', 'alt', 'center', 'bgcolor'],
+  span :['style'],
+  table : ['style','class','border','align'],
+  img: [ 'src','data:*','class','style','alt','align' ]
+}, 
+selfClosing: [ 'img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta' ],
+allowedSchemes: [ 'http', 'https', 'ftp', 'mailto'],
+allowedSchemesByTag: {},
+allowProtocolRelative: true
+});
+ %>
+ <%- clean %>
+                                        </td>
+                                        <td> <%= blog.tags; %></td>
+                                   <!--   <td>
+                                 <% if(blog.image) {  
+ var data = blog.image.split(',');
+for(var j=0;j<data.length; j++) {
+%>
+<div class=""><img src="../uploads/blog/<%- data[j] %>" style="width:50px;"></div>
+
+
+
+<% } }%>
+                                     </td> -->
+                                     
+                                        </tr>
+                                    <% $i++; %>
+                                        <% }); %>
+                        </tbody> 
+                    </table>
+       </div>
+        </div>
+        </div>
+    </div>
+</div>

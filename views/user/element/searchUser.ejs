@@ -1,0 +1,18 @@
+  <ul>
+  <% user.forEach( function(users){ 
+if(users.local.from =='local'){
+        var mainUser = users.local;
+        }else{
+         var mainUser = users.facebook;
+        }
+  %>
+	  <li class="tagUsername"><a><%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:30px;">  
+<% }
+%><span class="Taguser"><%- mainUser.user_name %></span></a>
+</li>
+     <% }); %>
+
+</ul>

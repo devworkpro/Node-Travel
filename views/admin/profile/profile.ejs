@@ -1,0 +1,274 @@
+<style>
+.editFields{
+    cursor:pointer;
+}
+</style>
+<script>
+$(document).ready( function (){
+  $('.openForPwd').hide();
+$('.photo').hide();
+$('.brwssser').hide();
+  $('#upShw').hide();
+$('.editFields').click( function (event){
+  event.preventDefault();
+   $('#profileUp input').prop("disabled", false);
+   $('#upShw').show();
+    $('.photo').show();
+    $('.brwssser').show();
+    $(this).hide();
+});
+
+$(".pwd_change").on('click', function(){
+
+        $(".openForPwd").slideToggle();
+
+});
+
+
+
+       $('#pwdChange').submit(function(e) {
+          
+            var valid = $("#pwdChange").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#pwdChange').validate({
+            rules: {
+                'old_pwd': 'required',
+               'password': {
+                        required: true,
+                        minlength: 6
+                    },
+              
+            },
+            messages: {
+                old_pwd: {
+                    required: "old password can't be blank"
+                },
+                 password: {
+                        required: "Password can't be blank",
+                        minlength: "Password should be at least {0} characters long"
+                    }
+              
+           }
+
+        });
+
+           $('#e_Img_file').bind('change', function() {
+
+         var ext = $('#e_Img_file').val().split('.').pop().toLowerCase();
+            if($.inArray(ext, ['jpeg','JPEG','jpg','JPG','PNG','png']) == -1) {
+                alert('invalid extension! Only (jpeg|jpg|png) extension are required.');
+                  $('#e_file').val('');
+                  return false;
+            }else{
+              $(this).parents('.setup').find('.value').text(this.files[0].name);
+            }
+   });
+
+
+
+});
+</script>
+<style>
+.user-pro label {
+    display: -moz-inline-box;
+}
+#profileUp .user-pro input{
+    background: transparent !important;
+}
+.no-border {
+    border: 0;
+    padding: 5px;
+    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+}
+.admin-information{
+  height: 85px;
+}
+.well .text-primary {
+    text-align: center;
+}
+.editFields {
+    background-color: #337ab7;
+    color: #fff;
+    margin-bottom: 20px;
+    padding: 10px 35px;
+}
+.well .text-primary {
+    color: #202020;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 39px;
+    text-align: center;
+}
+.well > form {
+    margin-top: 20px;
+}
+/*#pwdChange > input {
+    border: 1px solid #ebebeb;
+    height: 34px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding: 5px;
+}*/
+.profile-img {
+    float: left;
+    margin-right: 35px;
+}
+.user-pro {
+    font-size: 14px;
+    padding: 10px 0 0;
+    
+}
+
+.passwrd {
+    font-size: 14px;
+    
+    padding-top: 10px;
+}
+.col-sm-8.admin-info {
+    margin-left: 60px;
+}
+.photo.brwserrr {
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+}
+.change-pwd {
+  /*  background-color: lightgreen;
+    color: #fff;*/
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.brwssser {
+    background-color: lightgreen;
+    color: #fff;
+    margin-top: -30px;
+    padding: 5px 100px;
+    position: absolute;
+    
+}
+/*#upShw {
+    background-color: lightgreen;
+    border: medium none;
+    color: #fff;
+   
+    margin-top: 15px;
+    padding: 5px 25px;
+}*/
+.col-sm-3.conts {
+    padding: 11px;
+}
+/*#pwdChange >  input {
+    border: 1px solid #ebebeb;
+    border-radius: 0;
+    padding: 6px;
+}*/
+.img-circle.profile-dp {
+    height: 200px;
+    width: 200px;
+}
+.browe_btn {
+    display: block;
+    margin: 10px auto auto;
+    text-align: center;
+    width: 100px;
+}
+.browe_btn span{
+    padding: 4px;
+    width:100px;
+}
+.browe_btn input{
+    width:100px;
+}
+@media (min-width: 320px) and (max-width: 480px){
+    .panel-white {
+    background: #fff;
+    margin: 0px !important;
+}
+}
+</style>
+
+<!-- Admin INFORMATION -->
+<div class="page-inner" style="min-height:902px !important">
+<div id="main-wrapper">
+<div class="row m-t-md">
+
+
+<div class="col-sm-12 admin-info ">
+    <div class="panel panel-white">
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title">Admin Profile</h3>
+        </div>
+
+       
+         <% if (message.length > 0) { %>
+        <div class="alert alert-success">
+            <%= message %>
+        </div>
+        <% } %>
+<div class="panel-body">
+<div class="row">
+<form action="/profileUpdate" method="POST" id="profileUp" enctype="multipart/form-data">
+<div class="col-sm-3 text-center">
+
+<% if(user){  if(user.photo) { %>
+<img src="./uploads/images/<%= user.photo %>" style="width:150px; height: 150px;" class="img-circle">
+<% } else if(user.local.photo){ %>
+<img src="./uploads/images/<%= user.local.photo %>" style="width:150px; height: 150px;" class="img-circle">
+<% }else{ %>
+ <img src="../images/admin/1.jpg" style="width:150px; height: 150px;" class="img-circle">
+ <% } } %>
+ <div class="browe_btn">
+<input type="file" name="photo" id="e_Img_file" class="photo brwserrr">
+<span class="brwssser"> Browes</span>
+</div>
+</div>
+<div class="col-sm-9 setup">
+ <a class="editFields pull-right">Edit</a>
+
+<span class="value"></span>
+<div class="user-pro" >
+<label>User Name :<input type="text" class="no-border" name="user_name" value="<%= user.local.user_name %>" disabled></label> </div>
+<div class="user-pro" >
+<label>First Name : <input type="text" class="no-border" name="first_name" value="<%= user.local.first_name %>" disabled> </label></div>
+<div class="user-pro" >
+<label>Last name : <input type="text"  class="no-border" name="last_name" value="<%= user.local.last_name %>" disabled> </label></div>
+<div class="user-pro" >
+<label>Email :  <input type="email"  class="no-border" name="email" value="<%= user.local.email %>" disabled> </label></div>
+<input type="hidden" value="<%= user.local.photo %>" name="old_file">
+
+</div>
+<input type="submit" value="Update" id="upShw" class="btn btn-success">
+</form>
+</div>
+<div class="row">
+<div class="col-sm-3"></div>
+
+<div class =" col-sm-9 conts">
+<div class="user-pro passwrd"><label>Password change :</label><a class="pwd_change">Change Password</a></div>
+
+<div class ="openForPwd">
+<form action="/pwdChange" id="pwdChange" method="POST" class="form-horizontal">
+  <div class="col-sm-12 user-pro">
+<label>Old Password :</label> <input type="password" name="old_pwd"></label></div><br>
+<div class="col-sm-12 user-pro">
+<label>New Password :</label> <input type="password" name="password"> </label> </div>
+<input type="submit" class="change-pwd btn btn-success"value="Change">
+</form>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+
+</div></div></div>
+
+
+
+
+
+
+    

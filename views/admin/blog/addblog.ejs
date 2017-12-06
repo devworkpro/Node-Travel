@@ -1,0 +1,273 @@
+
+
+
+<script>
+ $(document).ready(function() {
+  
+
+
+  var images =[];
+    var videos =[];
+
+    // on change //
+
+    /*********** for blog page*******/
+  
+   $('.subB').click( function(e) {
+       var file = $('.filenAme').val();
+      var div = $('.Editor-editor').html();
+      $('.chatBox').val(div);
+       var chatBox = $('.chatBox').val();
+       var title = $('.title').val();
+        var tags = $('.tags').val();
+     if(title == '' || chatBox == '' || tags ==''){
+    
+      var mes ='Please fill the mandatory fields.';
+     if(title == '' && chatBox == '' && tags == ''){
+      $('.til').addClass('error');
+ $('.des').addClass('error'); 
+  $('.tag').addClass('error'); 
+}else if(title == ''){
+$('.til').addClass('error');
+ $('.des').removeClass('error');
+  $('.tag').removeClass('error'); 
+      }else if(chatBox ==''){
+      $('.des').addClass('error');  
+      $('.til').removeClass('error');
+        $('.tag').removeClass('error'); 
+      }else if(tags ==''){
+         $('.tag').addClass('error'); 
+          $('.des').removeClass('error');  
+      $('.til').removeClass('error');
+      }
+      $('.mesg').text(mes);
+        e.preventDefault();
+     }else{
+    //   if($('.filenAme').val() !== ''){
+   //$("#postMessage").attr("enctype","multipart/form-data")
+   // }
+
+   $('#postMessage').submit();
+ }
+
+ });
+
+$('.clearify').click( function (){
+  //var file = $('.filenAme').val('');
+       var chatBox = $('.chatBox').val('');
+         var title = $('.title').val('');
+        $('.Editor-editor').html('');
+        $('#tags_1_tagsinput').find('span.tag').remove();
+        $('#tags_1').val('');
+      // $('.del').html('');
+      // $('#blah').attr('src','');
+});
+
+   /***********end for blog page*******/
+    
+    /* function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+             var file = $('.filenAme').val(input.files[0]);
+        }
+    }
+    
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
+*/
+
+  
+    
+/************************ remove unwanted photo *************************/       
+/* $(document).on("click", ".del_now", function(e) { 
+
+  var id = $(this).attr('attr-id');
+  var type = $(this).attr('data-type');
+  if( $("#postMessage").find('.filenAme').val()){
+    $('.filenAme').val('');
+    $('.fileCheck').val('');
+  }
+  if(type == 'image'){
+        images.splice(id,1);
+    }
+    else{
+     videos.splice(id,1);
+    }
+    $(this).prev().remove();
+    $(this).parents('.del').empty();
+    $(this).remove();
+     
+});*/
+/********************************************/
+});
+</script>
+
+<style type="text/css">
+/*  .cht-text {
+    border: 1px solid #00b8df;
+    height: 90px;
+    width: 100%;
+}*/
+textarea{
+  resize: none;
+}
+.btn.btn-default.btn-c.clear.clearify {
+    background-color: #00b8df;
+    color: #fff;
+}
+.btn.btn-default.btn-c.btn-p.subB {
+    background-color: #001f25;
+    color: #00b8df;
+}4
+.file.bmd {
+    margin-top: 1px;
+    opacity: 0;
+    position: relative;
+    width: 146px;
+    z-index: 1;
+    margin-left: -41px;
+    height: 34px
+}
+
+.brwase {
+     background-color: #00b8df;
+    color: #fff;
+    margin-left: -41px;
+    margin-top: -35px;
+padding: 7px 27px;
+    position: absolute;
+}
+.mesg {
+    color: #ff0000;
+    display: block;
+    margin-bottom: 10px;
+}
+#postMessage .control-label > span {
+    margin-left: 1px;
+}
+#postMessage .control-label > span.error {
+    color: #bf4800;
+}
+</style>
+
+<script src="../js/editor.js"></script>
+<link href="../css/editor.css" type="text/css" rel="stylesheet"/> 
+
+<link rel="stylesheet" type="text/css" href="../css/tag/jquery.tagsinput.css" />
+
+<script type="text/javascript" src="../js/tag/jquery.tagsinput.js"></script>
+
+
+
+  <script type="text/javascript">
+
+    function onAddTag(tag) {
+      alert("Added a tag: " + tag);
+    }
+    function onRemoveTag(tag) {
+      alert("Removed a tag: " + tag);
+    }
+
+    function onChangeTag(input,tag) {
+      alert("Changed a tag: " + tag);
+    }
+
+    $(function() {
+
+      $('#tags_1').tagsInput({width:'auto'});
+    });
+      </script>
+    <script>
+      $(document).ready(function() {
+        $("#txtEditor").Editor();
+      });
+    </script>
+
+
+ <div class="page-inner">
+ <div id="main-wrapper">
+ <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+                <div class="row m-t-md add-blogg">
+           
+                 <div class="col-md-12">
+
+                 <div class="panel panel-white">
+
+<div class="panel-heading clearfix">
+  <h4 class="panel-title">Add new blog</h4>
+</div>
+
+  <div class="panel-body">
+<form action="/saveBlog" method="POST" id ='postMessage' class="form-horizontal" enctype="multipart/form-data">
+<div class="getBchng">
+  
+
+</div>
+ <span class="mesg"></span>   
+    <% if(message > 0){ %>
+  <span class="message"><%= message %></span>
+<% } %>
+<div class="form-group"> 
+    <label class="col-sm-2 control-label">Title
+    <span class="til">*</span></label> 
+    <div class="col-sm-10">
+      <input type="text" name="title" class="title form-control">
+    </div>
+</div>
+<div class="form-group">          
+    <label class="col-sm-2 control-label">Description
+    <span class="des">*</span></label> 
+    <div class="col-sm-10">
+      <textarea name="message" id="txtEditor" class="chatBox cht-text form-control" rows="7"></textarea>
+    </div>
+</div>
+
+<div class="form-group">          
+    <label class="col-sm-2 control-label">Tags
+    <span class="tag">*</span></label> 
+    <div class="col-sm-10">
+     <input id="tags_1" type="text" class="tags" name="tags"/> 
+     Type your tag name and press enter key           
+    </div>
+</div>
+
+
+
+
+<!-- <div class="form-group">   
+    <label class="col-sm-2 control-label">Image</label>       
+    <div class="col-sm-10">    
+       
+        <span class="brow form-control">Browse
+        <input type='file' id="imgInp"  class="file fileCheck" id="file" name="file" />
+        </span>
+        <img id="blah" src="#" alt="" />
+    </div>
+</div>  -->
+
+
+             
+           <!--  <img id="loadingImg" src="/img/loader.gif"> -->
+            <div class="sec4 pull-right pr10">
+              <button type="reset" class="btn btn-default  clear clearify">Clear</button>&nbsp;
+              <!-- <button type="button" class="btn btn-default btn-c btn-p">Boost Post</button>&nbsp; -->
+              <button type="submit" class="btn btn-success btn-c btn-p subB">Post</button>
+            </div>
+            
+            <div class="clearfix"></div>
+         
+
+           
+           </form>
+           </div></div>
+           </div>
+           </div>
+           </div>
+           </div>

@@ -1,0 +1,537 @@
+<!-- PROFILE INFORMATION -->
+
+<script src="../frontend/js/front_page.js" type="text/javascript"></script>
+
+ <input type="hidden" class="form-control cnty_Nm" name="country_name">
+ 
+<% if(userDetail.from != 'facebook'){ %>
+ <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="photoContainer">
+
+
+                    <input type="hidden" value="<%= userDetail.from %>" name='from' class='from'>
+
+                    <div id="formdiv">
+
+                        <div class="profile_info_top">
+                            <div class="profile_pic">
+
+                                <form enctype="multipart/form-data" action="" method="post">
+                                    <label for="file">
+
+                    <div id="image" style="margin-top:5%;">
+                    </div>
+
+                                      </label>
+                                    <% if(userDetail.photo){ %>
+                                        <img src="./uploads/images/<%= userDetail.photo %>" class="showImg" alt="profile img">
+                                        <% }else{ %>
+                                            <img src="../images/admin/1.jpg" class="showImg" alt="profile img">
+                                            <% } %>
+
+                                                <span class="change_profile_img"> <div id="filediv"><input name="file[]" type="file" id="file"/></div></span>
+                                </form>
+                            </div>
+                            <!-- profile_pic -->
+                            <div class="profile_name">
+                                <h1 class="upName">
+                                    <%= userDetail.user_name %> (<%= userDetail.first_name + ' ' + userDetail.last_name %>)</h1>
+                                <button class="btn btn_main">Update Info</button>
+                            </div>
+                            <!-- profile_name -->
+                        </div>
+
+
+
+                    </div>
+                    <!-- cooment section -->
+                    <span class="msg"></span>
+                    <!-- end of cooment section -->
+                    <% if (message.length > 0) { %>
+                        <div class="alert alert-danger">
+                            <%= message %>
+                        </div>
+                        <% } %>
+    <div class="profile_info">
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= user.id %>" id='usrId'>
+                                <input type="hidden" value="<%= userDetail.user_name %>" id='usrnm'>
+                                <form method="POST">
+                                    User Name : <input type="text" attr="user_name" name="user_name" value="<%= userDetail.user_name %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.first_name %>" id='usrfn'>
+                                <form method="POST">
+                                    First Name : <input type="text" attr="first_name" name="first_name" value="<%= userDetail.first_name %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.last_name %>" id='usrln'>
+                                <form method="POST">
+                                    Last Name : <input type="text" attr="last_name" name="last_name" value="<%= userDetail.last_name %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.email %>" id='usrmail'>
+                                <form method="POST">
+                                    Email : <input type="email" attr="email" name="email" value="<%= userDetail.email %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.phone %>" id='usrphn'>
+                                <form method="POST">
+                                    Phone : <input type="text" attr="phone" value="<%= userDetail.phone %>" readonly='readonly' class="fields">
+
+                                    <input type="tel" attr="phone" class="setphone form-control phone" id="phone" name="phone">
+
+                                    <button type="button" class="edit">Edit</button>
+                                    <span id="valid-msg" class="hide">✓ Valid</span>
+                                    <span id="error-msg" class="hide">Invalid number</span>
+
+                                    <span class="LayMesg err Phon_err"></span>
+                                    <span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+
+                             <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.age %>" id='usrage'>
+
+                                <form method="POST">
+                                    Age : <input type="text" attr="age" name="age" value="<%= userDetail.age %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.waist %>" id='usrwst'>
+
+                                <form method="POST">
+                                    Waist : <input type="text" attr="waist" name="waist" value="<%= userDetail.waist %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.fitness %>" id='usrfitns'>
+                                <form method="POST">
+                                    Fitness : <input type="text" attr="fitness" value="<%= userDetail.fitness %>" readonly='readonly' class="fields" required>
+                                    <div class="fitLevel">
+                                        <select name="fitness" attr="fitness" class="selectAdd">
+                    <option value="Beginner" <% if(userDetail.fitness == 'Beginner'){%>selected<%}%>  >Lifestyle (Beginner)</option>
+
+                    <option value="intermediate" <% if(userDetail.fitness == 'intermediate'){%>selected<%}%>>Performance (intermediate)</option>
+
+                    <option value="advanced" <% if(userDetail.fitness == 'advanced'){%>selected<%}%>>Competitor (advanced)</option>
+                </select>
+                                    </div>
+                                    <button type="button" class="edit" class="edit">Edit</button><span class="alertText"></span>
+
+
+
+
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+
+                    <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.goal %>" id='usrgoal'>
+                                <form method="POST">
+                                    Goal : <input type="text" attr="goal" value="<%= userDetail.goal %>" readonly='readonly' class="fields" required>
+                                    <div class="goalLevel">
+                                        <select name="goal" attr="goal" class="selectAdd">
+                    <option value="Body Composition or Weight Goal" <% if(userDetail.goal == 'Body Composition or Weight Goal'){%>selected<%}%>  >Body Composition or Weight Goal</option>
+
+                    <option value="Performance Goal" <% if(userDetail.goal == 'Performance Goal'){%>selected<%}%>>Performance Goal</option>
+
+                    <option value="Accountability Goal" <% if(userDetail.goal == 'Accountability Goal'){%>selected<%}%>>Accountability Goal</option>
+                </select>
+                                    </div>
+                                    <button type="button" class="edit" class="edit">Edit</button><span class="alertText"></span>
+
+
+
+
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+
+  <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.WOD_routine %>" id='usrWOD'>
+                                <form method="POST">
+                                    WOD Routine : <input type="text" attr="WOD_routine" value="<%= userDetail.WOD_routine %>" readonly='readonly' class="fields" required>
+                                    <div class="RoutineLevel">
+                                        <select name="WOD_routine" attr="WOD_routine" class="selectRoutine">
+                    <option value="Daily WOD" <% if(userDetail.WOD_routine == 'Daily WOD'){%>selected<%}%>  >Daily WOD</option>
+
+                    <option value="Travel WOD on Your way" <% if(userDetail.WOD_routine == 'Travel WOD on Your way'){%>selected<%}%>>Travel WOD on Your way</option>
+                </select>
+                                    </div>
+                                    <button type="button" class="edit" class="edit">Edit</button><span class="alertText"></span>
+
+
+
+
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.weight %>" id='usrweght'>
+                                <form method="POST">
+                                    Weight : <input type="text" attr="weight" name="weight" value="<%= userDetail.weight %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+                            <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.height %>" id='usrheght'>
+                                <form method="POST">
+                                    Height : <input type="text" attr="height" name="height" value="<%= userDetail.height %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+                            Password : ******
+                            <div class="conts"><a class="pwd_change">Change Password</a>
+
+                                <div class="openForPwd">
+                                    <form action="/pwdChange" id="pwdChange" method="POST">
+                                        Old Password : <input type="password" name="old_pwd"><br/> New Password : <input type="password" name="password">
+                                        <input type="submit" value="Change">
+                                    </form>
+                                </div>
+                            </div>
+
+                            </div>
+                   </div>
+            </div>
+        </div>
+    </div>
+
+
+    <% } else{ %>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="photoContainer">
+
+                        <input type="hidden" value="<%= userDetail.from %>" name='from' class='from'>
+
+
+
+
+                        <div id="formdiv">
+
+                            <div class="profile_info_top">
+                                <div class="profile_pic">
+
+                                    <form enctype="multipart/form-data" action="" method="post">
+                                        <label for="file">
+
+                    <div id="image" style="margin-top:5%;">
+
+                   
+
+                    </div>
+
+         </label>
+                                        <% if(userDetail.photo){ %>
+                                            <img src="./uploads/images/<%= userDetail.photo %>" class="showImg" alt="profile img">
+                                            <% }else{ %>
+                                                <img src="../images/admin/1.jpg" class="showImg" alt="profile img">
+                                                <% } %>
+
+                                                    <span class="change_profile_img"> <div id="filediv"><input name="file[]" type="file" id="file"/></div></span>
+                                    </form>
+                                </div>
+                                <!-- profile_pic -->
+                                <div class="profile_name">
+                                    <h1>
+                                        <%= userDetail.user_name %> <span>(<%= userDetail.first_name + ' ' + userDetail.last_name %>)</span></h1>
+                                    <button class="btn btn_main">Update Info</button>
+                                </div>
+                                <!-- profile_name -->
+                            </div>
+                            </div>
+                        <!-- cooment section -->
+                        <span class="msg"></span>
+                        <!-- end of cooment section -->
+                        <% if (message.length > 0) { %>
+                            <div class="alert alert-danger">
+                                <%= message %>
+                            </div>
+                            <% } %>
+    <div class="profile_info">
+                                <div class="updateProfile">
+                                    <input type="hidden" value="<%= user.id %>" id='usrId'>
+                                    <input type="hidden" value="<%= userDetail.user_name %>" id='usrnm'>
+                                    <form method="POST">
+                                        User Name : <input type="text" attr="user_name" name="user_name" value="<%= userDetail.user_name %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+
+                                <div class="updateProfile">
+                                    <input type="hidden" value="<%= userDetail.first_name %>" id='usrfn'>
+                                    <form method="POST">
+                                        First Name : <input type="text" attr="first_name" name="first_name" value="<%= userDetail.first_name %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+
+
+                                <div class="updateProfile">
+                                    <input type="hidden" value="<%= userDetail.last_name %>" id='usrln'>
+                                    <form method="POST">
+                                        Last Name : <input type="text" attr="last_name" name="last_name" value="<%= userDetail.last_name %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+
+                                <div class="updateProfile">
+                                    <input type="hidden" value="<%= userDetail.email %>" id='usrmail'>
+                                    <form method="POST">
+                                        Email : <input type="email" attr="email" name="email" value="<%= userDetail.email %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+
+                                <div class="updateProfile">
+                                    <input type="hidden" value="<%= userDetail.phone %>" id='usrphn'>
+                                    <form method="POST">
+                                        Phone : <input type="text" attr="phone" value="<%= userDetail.phone %>" readonly='readonly' class="fields">
+
+                                        <!-- <input type="tel" attr="phone" id="phone" name="phone" value="<%= userDetail.phone %>" class="phone setphone"> -->
+                                        <input type="tel" attr="phone" class="setphone form-control phone" id="phone" name="phone">
+
+                                        <button type="button" class="edit">Edit</button>
+                                        <span id="valid-msg" class="hide">✓ Valid</span>
+                                        <span id="error-msg" class="hide">Invalid number</span>
+
+                                        <span class="LayMesg err Phon_err"></span>
+                                        <span class="alertText"></span>
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+      <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.age %>" id='usrage'>
+
+                                <form method="POST">
+                                    Age : <input type="text" attr="age" name="age" value="<%= userDetail.age %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+                                <div class="updateProfile">
+
+                                    <input type="hidden" value="<%= userDetail.waist %>" id='usrwst'>
+                                    <form method="POST">
+                                        Waist : <input type="text" attr="waist" name="waist" value="<%= userDetail.waist %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+
+                                <div class="updateProfile">
+
+                                    <input type="hidden" value="<%= userDetail.fitness %>" id='usrfitns'>
+
+                                    <form method="POST">
+                                        Fitness : <input type="text" attr="fitness" value="<%= userDetail.fitness %>" readonly='readonly' class="fields" required>
+                                        <div class="fitLevel">
+                                            <select name="fitness" attr="fitness" class="selectAdd">
+                    <option value="Beginner" <% if(userDetail.fitness == 'Beginner'){%>selected<%}%>  >Lifestyle (Beginner)</option>
+
+                    <option value="intermediate" <% if(userDetail.fitness == 'intermediate'){%>selected<%}%>>Performance (intermediate)</option>
+
+                    <option value="advanced" <% if(userDetail.fitness == 'advanced'){%>selected<%}%>>Competitor (advanced)</option>
+                </select>
+                                        </div>
+                                        <button type="button" class="edit" class="edit">Edit</button><span class="alertText"></span>
+
+
+
+
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+
+  <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.goal %>" id='usrgoal'>
+                                <form method="POST">
+                                    Goal : <input type="text" attr="goal" value="<%= userDetail.goal %>" readonly='readonly' class="fields" required>
+                                    <div class="goalLevel">
+                                        <select name="goal" attr="goal" class="selectAdd">
+                    <option value="Body Composition or Weight Goal" <% if(userDetail.goal == 'Body Composition or Weight Goal'){%>selected<%}%>  >Body Composition or Weight Goal</option>
+
+                    <option value="Performance Goal" <% if(userDetail.goal == 'Performance Goal'){%>selected<%}%>>Performance Goal</option>
+
+                    <option value="Accountability Goal" <% if(userDetail.goal == 'Accountability Goal'){%>selected<%}%>>Accountability Goal</option>
+                </select>
+                                    </div>
+                                    <button type="button" class="edit" class="edit">Edit</button><span class="alertText"></span>
+
+
+
+
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+                                  <div class="updateProfile">
+                                <input type="hidden" value="<%= userDetail.WOD_routine %>" id='usrWOD'>
+                                <form method="POST">
+                                    WOD Routine : <input type="text" attr="WOD_routine" value="<%= userDetail.WOD_routine %>" readonly='readonly' class="fields" required>
+                                    <div class="RoutineLevel">
+                                        <select name="WOD_routine" attr="WOD_routine" class="selectRoutine">
+                    <option value="Daily WOD" <% if(userDetail.WOD_routine == 'Daily WOD'){%>selected<%}%>  >Daily WOD</option>
+
+                    <option value="Travel WOD on Your way" <% if(userDetail.WOD_routine == 'Travel WOD on Your way'){%>selected<%}%>>Travel WOD on Your way</option>
+
+                </select>
+                                    </div>
+                                    <button type="button" class="edit" class="edit">Edit</button><span class="alertText"></span>
+
+
+
+
+                                    <div class="hideField">
+                                        <input type="submit" value="Save" class="sub">
+                                        <button type="button" class="closeTab">Cancel</button>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+
+
+                                <div class="updateProfile">
+                                    <input type="hidden" value="<%= userDetail.weight %>" id='usrweght'>
+                                    <form method="POST">
+                                        Weight : <input type="text" attr="weight" name="weight" value="<%= userDetail.weight %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+
+                                <div class="updateProfile">
+                                    <input type="hidden" value="<%= userDetail.height %>" id='usrheght'>
+                                    <form method="POST">
+                                        Height : <input type="text" attr="height" name="height" value="<%= userDetail.height %>" readonly='readonly' class="fields" required><button type="button" class="edit">Edit</button><span class="alertText"></span>
+                                        <div class="hideField">
+                                            <input type="submit" value="Save" class="sub">
+                                            <button type="button" class="closeTab">Cancel</button>
+                                        </div>
+                                        <br/>
+                                    </form>
+                                </div>
+
+                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<% } %>
+            </div>

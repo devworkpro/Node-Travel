@@ -1,0 +1,79 @@
+ <% JSON.stringify(blog);
+      console.log(blog);
+var u = 1;
+    blog.forEach( function(blogs){ %>
+ <div class="mainContainer" cmntid="<%- blogs.id %>">
+<h3 class="blog_title"> <%- blogs.title %> </h3>
+
+<div class="blog_date"><a target ="blank" href="/readBlog?id=<%- blogs.id %>"><i class="fa fa-calendar" aria-hidden="true"></i>
+   <%- timeAgo(blogs.created_at); %>
+    
+ </a></div>
+ <div class="comnt"><a target ="blank" href="/readBlog?id=<%- blogs.id %>">
+ <i class="fa fa-comments" aria-hidden="true"></i>
+      <% if(blogs.commentsIds.length){%>
+     
+ <%- blogs.commentsIds.length %> 
+      
+
+      <%} %> Comments
+</a></div>
+
+<%var getClass;
+var ids = user._id;
+
+if(blogs.likes.length){
+for( var i = 0, len = blogs.likes.length; i < len; i++ ) {
+
+    if( blogs.likes[i].userId == ids ) {
+
+        getClass = blogs.likes[i];
+       
+    }
+}
+}
+%>
+  <!-- end of comment section -->
+
+<div class="blog_like <% if(getClass){ %>blue<% }%>"><a target ="blank" href="/readBlog?id=<%- blogs.id %>"  ><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+    <% if(blogs.likes){ if(blogs.likes.length){%>
+     
+ <%- blogs.likes.length %> 
+      
+
+      <%} }%>Likes</a></div>
+
+      <!-- comment section -->
+
+
+<div class="blog_desc">
+    <%- blogs.message %>
+<% var tag =  blogs.tags.toString().split(','); 
+
+for(var i=0;i<tag.length; i++) {
+if(tag[i]){ 
+var length = parseInt(tag.length)-parseInt(1); %>
+  <a href="/tag?tags=<%-tag[i]%>" >#<%- tag[i] %></a>
+  <% if(i < length){
+  %>,
+  <% 
+  } }
+}
+%>
+
+</div>
+<style>
+.child{
+  margin-left: 20px;
+
+}
+.replyNow{
+  cursor: pointer;
+}
+</style>
+
+  <div class="read_more"><a target ="blank" href="/readBlog?id=<%- blogs.id %>"  class="wpcf7-submit">Read More.. </a></div>   
+</div>
+
+<!-- end of container -->
+ <%  }); %>

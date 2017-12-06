@@ -1,0 +1,211 @@
+<script src="../js/editor.js"></script>
+<link href="../css/editor.css" type="text/css" rel="stylesheet"/>
+
+<script>
+      $(document).ready(function() {
+        $("#txtEditor").Editor();
+        
+         setTimeout(function(){  
+           // alert($('#get').val());
+        $('.Editor-editor').html($('#get').val());
+        }, 3000);
+      });
+    </script>
+<script type="text/javascript">
+    /******** form validation *********/
+
+      $(document).ready(function() {
+        $('#videoAdd').submit(function(e) {
+       
+        var div = $('.Editor-editor').html();
+      $('#txtEditor').val(div);
+      
+          var valid = $("#videoAdd").valid();
+           if (valid) {
+     if($('#e_file').val() == ''){ 
+         $('#e_file').val('<%= editVideo.video_link %>');
+         }
+         
+         if($('#videoo').val() != '' && $('#videoThmb').val() == ''){
+         alert('Please upload image for video thumbnail.');
+         $('#e_Img_file').focus();
+          e.preventDefault();
+          }else if($('#videoo').val() == '' && $('#videoThmb').val() != ''){
+         alert('Please upload video.');
+         $('#e_file').focus();
+          e.preventDefault();
+          }
+
+
+           } else {
+                e.preventDefault();
+            }
+    
+          
+           
+        });
+             $('#videoAdd').validate({
+            rules: {
+
+                'video_title': 'required',
+                'WOD_plan' : 'required',
+                  'video_des': {
+                    'required':true,
+                      'minlength': '100'
+                       }
+            },
+            messages: {
+                video_title: {
+                    required: "Ttile can't be blank"
+                },
+                video_des: {
+                    required: "Description can't be blank",
+                     minlength: "Type at least 100 character."
+                },
+                WOD_plan: {
+                    required: "WOD Plan can't be blank",
+                    
+                }
+                        
+               
+           }
+
+        });
+
+ $('#e_file').bind('change', function() {
+
+         var ext = $('#e_file').val().split('.').pop().toLowerCase();
+            if($.inArray(ext, ['mp3','mp4','wmv','MP3','MP4','WMV']) == -1) {
+                alert('invalid extension! Only (mp4|mp3|wmv) extension are required.');
+                  $('#e_file').val('');
+                  return false;
+            }
+
+
+            var file = this.files[0];
+            if (file.size > 367001600) {
+            
+                alert("The file is too large. Maximum file size of individual file is less than 350 MB.");
+                $('#e_file').val('');
+                return false;
+            }else{
+                 $(this).parents('.setup').find('.value').text(this.files[0].name);
+            }
+     $('#videoo').val($('#e_file').val());
+
+
+           
+        });
+
+        $('#e_Img_file').bind('change', function() {
+
+         var ext = $('#e_Img_file').val().split('.').pop().toLowerCase();
+            if($.inArray(ext, ['jpeg','JPEG','jpg','JPG','PNG','png']) == -1) {
+                alert('invalid extension! Only (jpeg|jpg|png) extension are required.');
+                  $('#e_file').val('');
+                  return false;
+            }else{
+                 $(this).parents('.setup').find('.value').text(this.files[0].name);
+             $('#videoThmb').val($('#e_Img_file').val());
+            }
+   });
+        
+
+
+    });
+
+    /********end of form validation *********/
+</script>
+
+
+<div class="page-inner">
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+        <div id="main-wrapper">
+        <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+        <div class="row m-t-md">
+              <div class="row m-t-md">
+              <div class="col-sm-12 add-plan-form">
+                <div class="panel panel-white">
+                    <div class="panel-heading clearfix">
+                      <h4 class="panel-title">Edit WOD</h4>
+                    </div>
+
+                    <!-- show any messages that come back with authentication -->
+
+                    <div class="panel-body">
+                    <!-- LOGIN FORM -->
+                    <form action="/UpdateWOD?id=<%= editVideo.id %>" method="post" id="videoAdd" enctype="multipart/form-data" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">WOD Title</label>
+                            <div class="col-sm-10">
+                            <input type="text" class="form-control" value="<%= editVideo.video_title %>" name="video_title">
+                            </div>
+                        </div>
+<input type="hidden" value="<%= editVideo.video_des %>" id="get">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">WOD Description</label>
+                            <div class="col-sm-10">
+                             <textarea class="form-control" id="txtEditor" rows="7" name="video_des"></textarea>
+                            </div>
+
+                         
+                        </div>
+<input type="hidden" id="videoo">
+<input type="hidden" id="videoThmb">
+                        <div class="form-group setup">
+                            <label class="col-sm-2 control-label">Browse Video</label>
+                            <div class="col-sm-10"><input type="file" class="form-control brw" value="<%= editVideo.video_link %>" id="e_file" name="video_link">
+<span class="brwse btn btn-primary"> Browse</span>
+<span class="value"> </span></div>
+</div>
+
+                        <div class="form-group setup">
+                            <label class="col-sm-2 control-label">Video Thumbnail</label>
+                            <div class="col-sm-10">
+                            <input type="file" class="form-control brw" id="e_Img_file" name="video_img">
+                            <span class="brwse btn btn-primary"> Browse</span>
+                            <span class="value"> </span></div>
+                        </div>
+
+<input type="hidden" name="old_file" value="<%= editVideo.video_link %>">
+<input type="hidden" name="old_img" value="<%= editVideo.video_img %>">
+                          <div align="center" class="" >
+    <video width="200" height="100" loop class="embed-responsive-item" controls poster="./uploads/video/<%= editVideo.video_img %>">
+        <source src="./uploads/video/<%= editVideo.video_link %>" type="video/mp4">
+          <source src="./uploads/video/<%= editVideo.video_link %>" type="video/wmv">
+         <source src="./uploads/video/<%= editVideo.video_link %>" type="video/mp3">
+
+    </video>
+</div>
+                     
+
+                      
+
+                         <div class="form-group">
+                            <label class="col-sm-2 control-label">WOD For Plan</label>
+                            <div class="col-sm-10">
+                            <select class="form-control" name="WOD_plan">
+                             <option value="">Select Plan</option>
+                             <% plan.forEach(function(plans) { %>  
+                             <option value="<%=plans._id %>" <% if(plans.id === editVideo.WOD_plan){ %>selected ='selected'<% }%> ><%=plans.plan_name %></option>
+                             <% }); %>
+                          </select>
+                          </div>
+                        </div>
+
+
+
+                         <button type="submit" class="btn btn-success btn-lg pull-right">Update</button>
+
+                    </form>
+                    </div>
+                </div>
+            </div>
+             </div>
+            </div>

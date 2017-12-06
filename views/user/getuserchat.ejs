@@ -1,0 +1,17 @@
+<%   results.forEach( function (result1){ %>
+
+<%- result1.msg_desc %>
+ 
+   <% if(result1.role==='admin'){ %>
+    <div class="chat-user-clint clearfix"><div class="user-image dh" ><img src="/uploads/images/" height="20" width="20"></div><p class="chat-masage" id="<%- result1._id %>" ><%- result1.msg_desc %></p><abbr class="timeago" title=""></abbr></div> 
+  
+   <% } else{  %>
+
+      <div class="chat-user-self clearfix" > <div class="user-image dh" ><img src="" height="20" width="20"></div><p class="chat-masage" id="<%- result1._id %>" ><%- result1.msg_desc %></p><abbr class="timeago" title=""></abbr></div> 
+  
+  
+<%   } %>
+<%   }); %>
+
+
+ 

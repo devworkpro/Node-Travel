@@ -1,0 +1,261 @@
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+
+      
+            /********signUp form validation *********/
+        $('#signUp').submit(function(e) {
+
+                /*var countryName = $('.selected-flag').attr('title');
+                $('.cnty_Nm').val(countryName);*/
+                var valid = $("#signUp").valid();
+                if (valid) {
+                  /*  if ($(".phone").intlTelInput("isValidNumber")) {
+
+                        return true;
+
+                        //var form =  $(this).serialize();
+                    } else {
+                        $('.phone').focus();
+                        e.preventDefault();
+
+                        return false;
+                    }*/
+                } else {
+                    e.preventDefault();
+                }
+            });
+            $('#signUp').validate({
+                rules: {
+                    'confirm_password': 'required',
+                    'password': {
+                        required: true,
+                        minlength: 6
+                    },
+
+                    'user_name': 'required',
+                    'first_name': 'required',
+                    'last_name': 'required',
+                   // 'age': 'required',
+                   // 'goal': 'required',
+                   // 'WOD_routine':'required',
+                    'email': {
+                        required: true,
+                        email: true
+                    },
+                   // 'height': 'required',
+                   // 'weight': 'required',
+                   // 'waist': 'required',
+                   // 'fitness': 'required',
+                 'staus': 'required',
+                    'package': 'required',
+                    'confirm_password': {
+                        equalTo: '[name="password"]'
+                    },
+                  /*  'phone': {
+                        required: true,
+                        minlength: 10
+
+                    },*/
+
+                },
+                messages: {
+                    user_name: {
+                        required: "User name can't be blank"
+                    },
+                    /* goal: {
+                        required: "Goal Field can't be blank"
+                    },*/
+                    staus: {
+                        required: "Click on checkbox if you are agree with our term and conditions"
+                    },
+                    first_name: {
+                        required: "First name can't be blank"
+                    },
+                    last_name: {
+                        required: "Last name can't be blank"
+                    },
+                    email: {
+                        required: "Email can't be blank"
+                    },
+                    package: {
+                        required: "Please choose at least one package"
+                    },
+                    confirm_password: {
+                        equalTo: "Password Confirmation does not match"
+                    },
+                    password: {
+                        required: "Password can't be blank",
+                        minlength: "Password should be at least {0} characters long"
+                    }
+                    /*phone: {
+                        required: "Phone number can't be blank",
+                        minlength: "must be at least {0} digits"
+                        // <-- removed underscore
+                    },
+                     height: {
+                        required: "Height can't be blank"
+                    },
+                     weight: {
+                        required: "Weight can't be blank"
+                    },
+                    age: {
+                        required: "Age can't be blank"
+                    },
+                     waist: {
+                        required: "Waist can't be blank"
+                    },
+                     fitness: {
+                        required: "Please Choose your fitness level"
+                    },
+                     WOD_routine: {
+                        required: "WOD can't be blank"
+                    }*/
+                    
+                    
+                },
+
+
+            });
+    });
+
+    /********end of signUp form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+            <div id="main-wrapper">
+   <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+                <div class="row m-t-md">
+                 <div class="col-md-12">
+                    <div class="panel panel-white">
+
+                    <div class="panel-heading clearfix">
+
+                      <h4 class="panel-title">Add new user</h4>
+                    </div>
+                    
+                    <!-- show any messages that come back with authentication -->
+
+                    <div class="panel-body">
+                    <!-- LOGIN FORM -->
+                    <form action="/add_user" method="POST" id="signUp" class="form-horizontal">
+                     <input type="hidden" class="form-control cnty_Nm" name="country_name">
+                        <div class="form-group sign-user-form">
+                            <label class="col-sm-2 control-label">User Name</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="user_name"></div>
+                        </div>
+
+                        <div class="form-group sign-user-form">
+                            <label class="col-sm-2 control-label">First Name</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="first_name"></div>
+                        </div>
+
+                        <div class="form-group sign-user-form">
+                            <label class="col-sm-2 control-label">Last Name</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="last_name"></div>
+                        </div>
+
+                        <div class="form-group sign-user-form">
+                            <label class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10"><input type="email" class="form-control" value=" " data-provide="typeahead" autocomplete="off" name="email"></div>
+                        </div>
+
+                        <div class="form-group sign-user-form">
+                            <label class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10"><input type="password" class="form-control" id="txtPassword" value="" data-provide="typeahead" autocomplete="off" name="password"></div>
+                        </div>
+                       
+                      
+ <!-- <div class="form-group parentsDiv">
+                            <label>Age</label>
+                            <input type="text" class="form-control age" name="age"><span>Yr</span>
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+                          <div class="form-group parentsDiv">
+                            <label>Height</label>
+                            <input type="text" class="form-control height" name="height"><span>in/cm</span>
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+             <div class="form-group parentsDiv">
+                            <label>Weight</label>
+                            <input type="text" class="form-control weight" name="weight"><span>lb/kg</span>
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+              <div class="form-group parentsDiv">
+                            <label>Waist</label>
+                            <input type="text" class="form-control waist" name="waist"><span>in/cm</span>
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+                  <div class="form-group">
+                            Fitness Levels 
+                            <label>
+            <input type="radio" value="Beginner" name="fitness">Lifestyle (Beginner)</label>
+
+             <label>
+            <input type="radio"  value="intermediate" name="fitness">Performance (intermediate)</label>
+
+            <label>
+            <input type="radio"  value="advanced" name="fitness">Competitor (advanced)</label>
+                        </div>
+
+                         <div class="form-group">
+                            Goal  
+                            <label>
+            <input type="radio" value="Body Composition or Weight Goal" name="goal">Body Composition or Weight Goal</label>
+
+             <label>
+            <input type="radio"  value="Performance Goal" name="goal">Performance Goal</label>
+
+            <label>
+            <input type="radio"  value="Accountability Goal" name="goal">Accountability Goal</label>
+                        </div>
+                        
+
+              <div class="form-group">
+                            WOD Routine :  
+                            <label>
+            <input type="radio" value="Daily WOD" name="WOD_routine">Daily WOD</label>
+
+             <label>
+            <input type="radio"  value="Travel WOD on Your way" name="WOD_routine">Travel WOD on Your way</label>
+                        </div> -->
+
+
+                        <input type="hidden" class="form-control" value="user" name="role">
+                        <input type="hidden" class="form-control" value="1" name="status">
+
+                       
+
+                 <div class="form-group">
+                         <label class="col-sm-2 control-label">Package</label>
+                        
+                 <div class="col-sm-10"><select name="package" class="form-control">
+ <option value="">Select Package</option>
+                       <% plans.forEach(function(Plan) { %>   
+                  <option value="<%=Plan.id %>"><%=Plan.plan_name + ' (' + Plan.currency + Plan.price +') for ' + Plan.plan_duration + ' duration'%></option>
+
+                        
+          <% }); %>
+                </select></div>
+          </div>
+
+
+       <button type="submit" class="btn btn-success btn-lg pull-right">Signup</button>
+
+                    </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+              </div>
+        

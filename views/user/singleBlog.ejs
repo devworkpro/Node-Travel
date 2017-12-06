@@ -1,0 +1,364 @@
+<script src="../frontend/js/blog.js" type="text/javascript"></script>
+<style>
+.blue .fa.fa-thumbs-up, .blue a {
+    color: blue;
+}
+</style>
+ <input type="hidden" value="<%= user %>" id="logOrNot">
+
+  <% JSON.stringify(blog);
+     
+var u ='1.01';
+    %>
+
+<div class="container blogContainer" style="margin-top: 80px;">
+
+<div class="col-md-3 pull-right">
+
+  <div class="search_blg">
+    <input type="search" name="search blg" class="form-control searchBlog" placeholder="Search By Title">
+
+    <i class="fa fa-search" aria-hidden="true"></i>
+
+  <div class="showFind">
+    
+  </div>
+  </div>
+  
+   <div class="recent_post">
+    <h3>Recent posts</h3>
+    <ul>
+    <% if(latested.length > 0){ %>
+        <% latested.forEach( function(latest){ %>
+      <li><a target ="blank" href="/readBlog?id=<%- latest.id %>"><%- latest.title %></a></li>
+     <% }); %>
+     <% }else{ %>
+No Latest Blog.
+     <% } %>
+    </ul>
+  </div><!-- recent_post -->
+
+</div>
+<div class="col-md-9 pull-left">
+<% blog.forEach( function(blogs){ %>
+ <div class="mainContainer">
+
+   <h3 class="blog_title"> <%- blogs.title %></h3>
+
+<div class="blog_date"><i class="fa fa-calendar" aria-hidden="true"></i>
+   <%- timeAgo(blogs.created_at); %> 
+   <!--<%= moment(blogs.created_at).format( 'DD/MM/YYYY') %>-->
+ </div>
+
+<% 
+var result;
+if(blogs.likes){
+if(blogs.likes.length){
+for( var i = 0, len = blogs.likes.length; i < len; i++ ) {
+    if( blogs.likes[i]['userId'] === user.id ) {
+
+        result = blogs.likes[i]['userId'];
+       
+    }
+}
+}
+}
+%>
+
+<div class="likes blog_like <% if(result){ %>blue <% } %>">
+
+
+<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+<span class="counter"><% if(blogs.likes){ if(blogs.likes.length){ %> <%-blogs.likes.length %><% }  } %></span> 
+<a class="ev_like" b_Id="<%- blogs.id %>" <% if(result){ %>style="display:none" <% } %> >Like</a>
+<a class="ev_unlike" b_Id="<%- blogs.id %>" <% if(!result){ %>style="display:none" <% } %>>Like</a>
+
+</div> 
+<style>
+
+.replyNow{
+  cursor: pointer;
+}
+.modal-body > .modal-login {
+    color: #333;
+    font-size: 18px;
+    text-align: center;
+     margin-top: 20px;
+}
+.modal-footer.mod_foot{
+  padding: 10px;
+}
+.comnt {
+    cursor: pointer;
+}
+.likes.blog_like.blue {
+    cursor: pointer;
+}
+</style>
+<a class="comnt"> <i class="fa fa-comments" aria-hidden="true"></i>
+       Comments</a>
+
+
+  <div class="blog_desc">  <%- blogs.message %></div>
+<% var tag =  blogs.tags.toString().split(','); 
+
+for(var i=0;i<tag.length; i++) {
+if(tag[i]){ 
+var length = parseInt(tag.length)-parseInt(1); %>
+  <a href="/tag?tags=<%-tag[i]%>" >#<%- tag[i] %></a>
+  <% if(i < length){
+  %>,
+  <% 
+  } }
+}
+%>
+<!-- <% if(blogs.image) {  
+ var data = blogs.image.split(',');
+for(var j=0;j<data.length; j++) {
+if(data[j]){
+%>
+<div class=""><img src="../uploads/blog/<%- data[j] %>" style="width:40px"></div>
+
+
+
+<% }} }%> -->
+
+ <h4 class="comt_heading">Comments</h4>
+ <div class="septComment">
+      <% if(blogs.commentsIds.length){
+      
+var comments = blogs.commentsIds;
+ var h=1;
+      var w=1;
+      var result;
+      var child;
+comments.forEach( function (comment,i){ 
+
+if(result){
+  if(comment.parentId === result){ %>
+ 
+  <div class="out child has">
+ <div class="user_cmt">
+ <div class="user">
+        <% if(comment.userId){
+        var userONe = comment.userId;
+         if(userONe.local.from =='local'){
+        var mainUser = userONe.local;
+        }else{
+         var mainUser = userONe.facebook;
+        }
+
+                        %>
+             
+                                 <%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;">  
+<% }
+}
+%>
+
+   </div>
+ <div class="comment">
+ <div class="user_name"><%= mainUser.user_name %></div>
+ <%- comment.message %>
+ <br><%- timeAgo(comment.created_at); %>
+ <input type="hidden" value="<%- blogs.id %>" class="blogId" >
+<input type="hidden" class="parent_id" value="<%- comment.order %>">
+<input type="hidden" class="order" value="<%- comment.order %>">
+<input type="hidden" class="type" value="reply">
+
+<input type="hidden" class="commtId" value="<%- comment.id %>">
+ <div><a class="replyNow">Reply</a></div>
+
+ </div>
+</div>
+ </div>
+ <%
+result = comment.order %>
+ <%  }else{ 
+
+ result = comment.order;%>
+</div>
+<input type="hidden" value="<%- comment.order %>" class="gCParnt">
+<div class="parent has">
+<div class="user_cmt">
+   <div class="user">
+        <% if(comment.userId){
+        var userONe = comment.userId;
+        if(userONe.local.from =='local'){
+        var mainUser = userONe.local;
+        }else{
+         var mainUser = userONe.facebook;
+        }
+                        %>
+             
+                                 <%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;">  
+<% }
+}
+%>
+
+   </div>
+
+ <div class="comment">
+ <div class="user_name"><%= mainUser.user_name %></div>
+ <%- comment.message %>
+  <%- timeAgo(comment.created_at); %>
+ <input type="hidden" value="<%- blogs.id %>" class="blogId" >
+<input type="hidden" class="parent_id" value="<%- comment.order %>">
+<input type="hidden" class="order" value="<%- comment.order %>">
+<input type="hidden" class="type" value="reply">
+
+<input type="hidden" class="commtId" value="<%- comment.id %>">
+ <div><a class="replyNow">Reply</a></div>
+
+ </div>
+</div>
+
+
+  <% h++; }
+}else{
+  result = comment.order;
+%>
+
+
+<input type="hidden" value="<%- comment.order %>" class="gCParnt">
+  <div class="parent has">
+  <div class="user_cmt">
+ <div class="user">
+        <% if(comment.userId){
+        var userONe = comment.userId;
+         if(userONe.local.from =='local'){
+        var mainUser = userONe.local;
+        }else{
+         var mainUser = userONe.facebook;
+        }
+                        %>
+            
+                                 <%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;">  
+<% }
+}
+%>
+
+   </div>
+ <div class="comment">
+  <div class="user_name"><%= mainUser.user_name %></div>
+ <%- comment.message %><br/>
+  <%- timeAgo(comment.created_at); %>
+ <input type="hidden" value="<%- blogs.id %>" class="blogId" >
+<input type="hidden" class="parent_id" value="<%- comment.order %>">
+<input type="hidden" class="order" value="<%- comment.order %>">
+<input type="hidden" class="type" value="reply">
+
+<input type="hidden" class="commtId" value="<%- comment.id %>">
+ <div><a class="replyNow">Reply</a></div>
+ 
+ </div>
+ 
+ </div>
+
+<% h++;
+}
+
+%>
+
+<!--  <%- comment[i] %> -->
+
+
+
+<%  w++; }); %>
+      
+
+      <%} %>
+</div>
+      <!-- end of comment section -->
+
+
+<div class="messageCounter">
+<form class="uploadComment">
+<input type="hidden" value="<%- blogs.id %>" class="blogId" >
+<input type="hidden" class="parent_id" value="0">
+<input type="hidden" class="order" value="<%- u %>">
+<input type="hidden" class="type" value="comment">
+<div class="user_mess_inp clearfix u_1">
+
+  <div class="send_comt">
+      <input type="text" name="user mesg" placeholder="Post your comment" class="form-control text_data mainFil" onkeypress="fastSending(event);">
+      <button type="submit" class="btn btn_main pull-right btn_blue_bg sending">Post</button></form>
+    <!-- onkeypress='fastSending(event);'-->
+  </div>
+</div>
+      
+      
+
+   </div>
+      <!-- comment section -->
+     
+</div>
+</div>
+<!-- end of container -->
+
+
+
+
+    <%  }); %>
+</div></div>
+<!-- Modal -->
+<div id="myModal" class="modal fade modeG" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+    
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <p class="modal-login">You need to <a href="/login"> login </a> first to like or comment the post</p>
+      </div>
+      <div class="modal-footer mod_foot">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+$(document).ready( function (){
+$( ".parent" ).each(function( index ) {
+if($(this).find('.child').length > 0){
+   $(this).find('.child').hide();
+    var child = $(this).find('.child').length;
+  $(this).find('.user_cmt:first').after('<a class="showHideReply">Views '+child+' Replies</a>')
+}
+
+});
+
+if($('.mainContainer').find( ".parent" ).length > 2){
+ 
+   $('.mainContainer .parent').not(':last').hide();
+
+ $('.mainContainer').find('.parent:last').before('<a class="showHideComment">Views all comments</a>')
+}
+
+$('.showHideReply').click( function (){
+$(this).parents('.parent').find('.child').show();
+$(this).hide();
+});
+
+$('.showHideComment').click( function (){
+$(this).parents('.mainContainer').find('.parent').show();
+$(this).hide();
+});
+
+});
+</script>
+
+
+
+

@@ -1,0 +1,60 @@
+<style type="text/css">
+  .payment-box {
+    background: #fff none repeat scroll 0 0;
+    margin: 72px auto 20px;
+    width: 500px;
+    border: 1px solid green;
+    box-shadow: 1px 1px 8px;
+}
+.pymnt h3 {
+    color:green;
+    font-weight: 300;
+    margin: 10px;
+    text-align: center;
+}
+.info-id {
+    padding: 20px;
+    text-align: center;
+}
+.pymnt > h4 {
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.pymnt-icon.text-center {
+    margin-top: 35px;
+}
+.btn.btn-default.got-it {
+    background-color: #44b669;
+    border: medium none;
+    border-radius: 0;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+</style>
+
+
+
+<div class="payment-box">
+   <div class="pymnt">
+     <div class="pymnt-icon text-center">
+      <img src="../images/success.png" style="width: 100px;">
+     </div>
+   <h3>Payment Successful!</h3>
+   <% if(payDetails){ %>
+  <div class="info-id">
+  <p><b>Payment  Id:</b> <%- payDetails.paymentId %></p>
+  <p><b>Amount Paid:</b> <%- payDetails.currency %><%- payDetails.amount %></p>
+  </div>
+  <% } %>
+
+   <h4><a href="/dashboard">Click Here  go to Dashboard.</a></h4>
+   </div>
+   <div class="btn-gotit text-center">
+   <a href="/dashboard"><button type="button" class="btn btn-default got-it">Ok ,Got it</button></a>
+   </div>
+   <div class="clearfix"></div>
+</div>

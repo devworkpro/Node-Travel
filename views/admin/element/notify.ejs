@@ -1,0 +1,323 @@
+<% var i =1; 
+
+var ids = user.id;
+%>
+<input type="hidden" class="toShW" value="<%- count %>">
+<%
+data.forEach( function (result){
+
+var getUs;
+if(result.UserRecord){
+if(result.UserRecord.length){
+for( var i = 0, len = result.UserRecord.length; i < len; i++ ) {
+
+
+    if( result.UserRecord[i] == ids ) {
+
+        getUs = result.UserRecord[i];
+       
+    }
+}
+}
+}
+
+var getClass;
+if(result.status){
+if(result.status.length){
+for( var i = 0, len = result.status.length; i < len; i++ ) {
+
+
+    if( result.status[i] == ids ) {
+
+        getClass = result.status[i];
+       
+    }
+}
+}
+}
+
+ %>
+
+<% if(result.type=='comment' && result.userId.id != ids && getUs){
+ %>
+<% if(result.userId.local.from == 'local'){
+  var user = result.userId.local;
+}else{
+  var user = result.userId.facebook;
+  console.log(result.userId.facebook);
+}
+
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+          <a href="/readblog?id=<%- result.blogId.id %>&noty=<%- result.id %>">
+          <div class="task-icon"><!-- <i class="icon-user"></i> -->
+             <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+
+           </div>
+          
+         <p class="task-details"><%- user.user_name %> comment on the blog "<%- result.blogId.title %>"</p>
+          <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+           </a>
+    <input type="hidden" value="<%- result.id %>" class="lastId">
+
+     <input type="hidden" value="<%- i %>" class="lastNum">
+
+  </li>                                                    <% i++; }else if(result.type=='reply' && result.userId.id != ids && getUs){ 
+
+  %>
+<% if(result.userId.local.from=='local'){
+  var user = result.userId.local;
+}else{
+  var user = result.userId.facebook;
+}
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+          <a href="/readblog?id=<%- result.blogId.id %>&noty=<%- result.id %>">
+           <div class="task-icon"><!-- <i class="icon-user"></i> -->
+            <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+
+           </div>
+          
+<% console.log(result.commentId.userId);
+console.log(ids);
+if(result.commentId.userId === ids){ %>
+
+   <p class="task-details"><%- user.user_name %> replied on your comment on blog "<%- result.blogId.title %>"</p>
+
+<% }else{ %>
+         <p class="task-details"><%- user.user_name %> comment on the blog "<%- result.blogId.title %>"</p>
+<% } %>
+ <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+           </a>
+     <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+  </li>                                                    <% i++; }else if(result.type=='Like blog' && result.userId.id != ids && getUs){ 
+%>
+<% if(result.userId.local.from =='local'){
+  var user = result.userId.local;
+}else{
+  var user = result.userId.facebook;
+}
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+          <a href="/readblog?id=<%- result.blogId.id %>&noty=<%- result.id %>">
+          <div class="task-icon"><!-- <i class="icon-user"></i> -->
+          <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+           </div>
+          
+         <p class="task-details"><%- user.user_name %> Like the blog "<%- result.blogId.title %>"</p>
+          <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+           </a>
+     <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+  </li>                                                    <% i++; }else if(result.type=='signUp'  && result.userId.id != ids && getUs){ 
+
+  %>
+<% if(result.userId.local.from=='local'){
+  var user = result.userId.local;
+  var useId = result.userId.id;
+}else{
+  var user = result.userId.facebook;
+   var useId = result.userId.id;
+}
+
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+          <a href="/userAction?id=<%- useId %>&status=view">
+           <div class="task-icon"><!-- <i class="icon-user"></i> -->
+            <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+
+           </div>
+        
+   <p class="task-details"><%- user.user_name %> has been registered.</p>
+      <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+
+  <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+
+  </li>                                                    <% i++; }else if(result.type=='add post'  && result.userId.id != ids && getUs){ 
+
+  %>
+<% if(result.userId.local.from=='local'){
+  var user = result.userId.local;
+  var useId = result.userId.id;
+}else{
+  var user = result.userId.facebook;
+   var useId = result.userId.id;
+}
+
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+<a href="/readCommunity?id=<%- result.PostId.id %>&noty=<%- result.id %>">
+           <div class="task-icon"><!-- <i class="icon-user"></i> -->
+            <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+
+           </div>
+       
+
+   <p class="task-details"><%- user.user_name %> add a new post.</p>
+    <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+    </a>
+     <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+
+  </li>                                                    <% i++; }else if(result.type=='PostComment'  && result.userId.id != ids && getUs){ 
+
+  %>
+<% if(result.userId.local.from=='local'){
+  var user = result.userId.local;
+  var useId = result.userId.id;
+}else{
+  var user = result.userId.facebook;
+   var useId = result.userId.id;
+}
+
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+<a href="/readCommunity?id=<%- result.PostId.id %>&noty=<%- result.id %>">
+           <div class="task-icon"><!-- <i class="icon-user"></i> -->
+            <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+
+           </div>
+         
+   <p class="task-details"><%- user.user_name %> comment on <% if(result.PostId.userId == ids){%> your <% } %> post "<%- result.PostId.title %>"</p>
+     <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+     </a>
+     <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+
+
+  </li>                                                    <% i++; }else if(result.type=='PostReply'  && result.userId.id != ids && getUs){ 
+
+  %>
+<% if(result.userId.local.from=='local'){
+  var user = result.userId.local;
+  var useId = result.userId.id;
+}else{
+  var user = result.userId.facebook;
+   var useId = result.userId.id;
+}
+
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+<a href="/readCommunity?id=<%- result.PostId.id %>&noty=<%- result.id %>">
+           <div class="task-icon"><!-- <i class="icon-user"></i> -->
+            <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+
+           </div>
+           
+   <p class="task-details"><%- user.user_name %> comment on <% if(result.PostId.userId == ids){%> your <% } %> post "<%- result.PostId.title %>"</p>
+<span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+   </a>
+  <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+
+  </li>                                                    <% i++; }else if(result.type=='Like Post' && result.userId.id != ids && getUs){ 
+  console.log('yahuuuuu');
+%>
+<% if(result.userId.local.from =='local'){
+  var user = result.userId.local;
+}else{
+  var user = result.userId.facebook;
+}
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+          <a href="/readCommunity?id=<%- result.PostId.id %>&noty=<%- result.id %>">
+          <div class="task-icon"><!-- <i class="icon-user"></i> -->
+          <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+           </div>
+          
+         <p class="task-details"><%- user.user_name %> Like <% if(result.PostId.userId == ids){%> your <% }else{ %>the <% } %> Post "<%- result.PostId.title %>"</p>
+          <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+           </a>
+     <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+  </li>                                                    <% i++; }else if(result.type=='PostReply'  && result.userId.id != ids && getUs){ 
+
+  %>
+<% if(result.userId.local.from=='local'){
+  var user = result.userId.local;
+  var useId = result.userId.id;
+}else{
+  var user = result.userId.facebook;
+   var useId = result.userId.id;
+}
+
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+<a href="/readCommunity?id=<%- result.PostId.id %>&noty=<%- result.id %>">           <div class="task-icon"><!-- <i class="icon-user"></i> -->
+            <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+
+           </div>
+           
+
+   <p class="task-details"><%- user.user_name %> comment on <% if(result.PostId.userId == ids){%> your <% } %> post "<%- result.PostId.title %>"</p>
+   <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+   </a>
+     <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+    
+
+  </li>                                                    <% i++; }else if(result.type=='disLike Post' && result.userId.id != ids && getUs){ 
+%>
+<% if(result.userId.local.from =='local'){
+  var user = result.userId.local;
+}else{
+  var user = result.userId.facebook;
+}
+%>
+  <li <% if(getClass){%>class="hello"<%}%> >
+<a href="/readCommunity?id=<%- result.PostId.id %>&noty=<%- result.id %>">
+          <div class="task-icon"><!-- <i class="icon-user"></i> -->
+          <% if(user.photo){ %>
+             <img class="img-circle" style="width:25px;height: 25px;" src="./uploads/images/<%- user.photo %> ">
+<% }else{ %>
+<img class="showProImg" src="../images/admin/1.jpg" style="width:25px;height: 25px;">
+<% }%>
+           </div>
+           
+         <p class="task-details"><%- user.user_name %> disLike <% if(result.PostId.userId == ids){%> your <% }else{ %>the <% } %> Post "<%- result.PostId.title %>"</p>
+         <span class="badge badge-roundless badge-default pull-right"><%- timeAgo(result.created_at) %></span>
+           </a>
+     <input type="hidden" value="<%- result.id %>" class="lastId">
+     <input type="hidden" value="<%- i %>" class="lastNum">
+  </li>                                                    <% i++; } %>                                    
+
+<%  }); %>
+

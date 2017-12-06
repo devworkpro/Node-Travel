@@ -1,0 +1,76 @@
+<!-- views/reset.ejs -->
+
+  <script>
+        $(document).ready(function() {
+         /********Reset form validation *********/
+            $('#reset').submit(function(e) {
+                var valid = $("#reset").valid();
+                if (valid) {
+               
+                } else {
+                    e.preventDefault();
+                }
+            });
+            $('#reset').validate({
+                rules: {
+                    'confirm_password': 'required',
+                    'password': {
+                        required: true,
+                        minlength: 6
+                    },
+                    'confirm_password': {
+                        equalTo: '[name="password"]'
+                    }
+                   
+
+                },
+                messages: {
+                  
+                    confirm_password: {
+                        equalTo: "Password Confirmation does not match"
+                    },
+                    password: {
+                        required: "Password can't be blank",
+                        minlength: "Password should be at least {0} characters long"
+                    }
+                    
+                },
+
+
+            });
+             });
+            /********end of  form validation *********/
+            </script>      
+
+                    <!-- RESET FORM -->
+
+<div class="container">
+
+        <div class="login_main">
+        <h1 class="section_heading" style="color:; padding-bottom:;">Reset Password</h1>
+ 
+        <div id="wpcf7-f23-o1" class="wpcf7" dir="ltr" lang="en-US">
+           <!-- show any messages that come back with authentication -->
+            <% if (error.length > 0) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+                <% } %>
+            <form class="wpcf7-form" action="/reset/<%=token%>" autocomplete="off" method="POST" novalidate="novalidate" id="reset">
+                <div class="contactform col-sm-12 animated tada visible" data-animation-delay="600" data-animation="tada">
+                    <div class="col-sm-offset-3 col-sm-6">
+
+                    <p><span class="wpcf7-form-control-wrap your-password"><input name="password" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="New Password" type="password"></span> </p>
+
+                    <p><span class="wpcf7-form-control-wrap your-password"><input name="confirm_password" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Confirm Password" type="password"></span> </p>
+                   
+                    <div class="submitbtn">
+                    <p><input class="wpcf7-form-control wpcf7-submit btn100" value="Update Password" type="submit"></p>
+                    </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+        </div><!-- reset -->
+    </div>

@@ -1,0 +1,552 @@
+<script src="../frontend/js/community.js" type="text/javascript"></script>
+<style>
+.blue{
+  color:blue;
+}
+</style>
+
+<style type="text/css">
+textarea{
+  resize: none;
+}
+.error{
+  border:1px solid red;
+}
+.btn.btn-default.btn-c.clear.clearify {
+    background-color: #00b8df;
+    color: #fff;
+}
+.btn.btn-default.btn-c.btn-p.subB {
+    background-color: #001f25;
+    color: #00b8df;
+}4
+.file.bmd {
+    margin-top: 1px;
+    opacity: 0;
+    position: relative;
+    width: 146px;
+    z-index: 1;
+    margin-left: -41px;
+    height: 34px
+}
+
+.brwase {
+     background-color: #00b8df;
+    color: #fff;
+    margin-left: -41px;
+    margin-top: -35px;
+padding: 7px 27px;
+    position: absolute;
+}
+.mesg {
+    color: #ff0000;
+    display: block;
+    margin-bottom: 10px;
+}
+#postMessage .control-label > span {
+    margin-left: 1px;
+}
+#postMessage .control-label > span.error {
+    color: #bf4800;
+}
+.likes .blue, a.blue {
+    color: blue;
+
+}
+@media (min-width: 320px) and (max-width: 480px){
+  #postMessage {
+    padding-top: 69px;
+}
+.post_user_right {
+    padding-left: 0px !important;
+}
+.blog_title {
+    font-size: 16px;
+    margin-top: 60px;
+}
+.zozo-social-icons-new {
+    margin: 0 auto;
+    text-align: center;
+    width: 75%;
+}
+.blog_desc {
+    font-size: 12px;
+    }
+}
+</style>
+ <input type="hidden" value="<%= user %>" id="logOrNot">
+
+  <% JSON.stringify(blog);
+     
+var u ='1.01'; %>
+ <div class="page-inner">
+ <div id="main-wrapper" class="container">
+                <div class="m-t-md add-blogg">
+           
+                 <div class="col-md-10 comm_dash_sec col-md-offset-1">
+                 <div class="panel panel-white mt50">
+
+
+  <div class="panel-body">
+<div class="post_user">
+   <div class="user">
+        <% if(user){
+
+         if(user.local.from == 'local'){
+  var userInfo = user.local;
+}else{
+  var userInfo = user.facebook;
+}
+  %>
+             
+                               <%  if(userInfo.photo){ %>
+<img src="./uploads/images/<%= userInfo.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;">  
+<% }
+}else{
+%>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;"> 
+<% } %>
+   </div>
+   <% if(user){ %><div class="user_name"><%- userInfo.user_name %></div><% } %>
+</div>
+<div class="post_user_right">
+<form action="/savePost" method="POST" id ='postMessage' class="form-horizontal">
+ <span class="mesg"></span>   
+    <% if(message > 0){ %>
+  <span class="message"><%= message %></span>
+<% } %>
+<div class="form-group"> 
+    <div class="col-sm-12">
+      <input type="text" placeholder="Title" name="title" class="title form-control til">
+    </div>
+</div>
+<div class="form-group">          
+    <div class="col-sm-12">
+      <textarea name="message" placeholder="Description" class="chatBox cht-text form-control des" rows="7"></textarea>
+    </div>
+</div>
+<div class="form-group">      
+    <div class="col-sm-12 showMe">    
+    <input type="hidden" class="filenAme" name="fileVideo"> 
+        
+        <input type='file' class="file fileCheck" id="file" name="file" <% if(user){}else{%> disabled ="disabled"<% } %>/>
+        
+       <!--  <img id="blah" src="#" alt="" /> -->
+
+        <div id="progress-wrp">
+    <div class="progress"></div >
+    <div class="percent">0%</div >
+
+</div>
+<div class="uploaded_image_video"></div>
+
+    </div>
+</div>               
+            <div class="sec4 pull-right pr10">
+              <button type="reset" class="btn btn-default  clear clearify">Clear</button>&nbsp;
+              
+              <button type="submit" class="btn btn-success btn-c btn-p subB">Post</button>
+            </div>
+            
+            <div class="clearfix"></div>
+       
+           </form>
+           </div>
+           </div></div>
+           </div>
+           </div>
+       
+
+<div class="col-md-10 col-md-offset-1 getInTouch">
+
+<% if(message.length){ %>
+<div class="alert alert-success" role="alert">
+<%- message %>
+</div>
+
+
+<% } %>
+<% if(error.length){ %>
+<div class="alert alert-danger" role="alert">
+<%- error %>
+</div>
+
+
+<% } %>
+
+<% blog.forEach( function(blogs){ %>
+ <div class="mainContainer commu_post" cmntId ="<%- blogs.id %>">
+<div class="post_user">
+ <div class="user">
+        <% if(blogs.userId){
+        var userONe = blogs.userId;
+         if(userONe.local.from =='local'){
+        var mainUser = userONe.local;
+        }else{
+         var mainUser = userONe.facebook;
+        }
+                        %>
+             
+                                 <%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;">  
+<% }
+}
+%>
+
+   </div>
+ <div class="user_name"><%= mainUser.user_name %></div>
+
+</div>
+<div class="post_user_right">   
+<h3 class="blog_title"> <%- blogs.title %> 
+<div class="dropdown show pull-right">
+ 
+
+ <% if(user){ 
+  if(blogs.userId.id == user.id){ 
+ var getId = user._id;
+  } }else{
+  var getId ='';
+  }
+if(getId){
+  %>
+  
+   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="fa fa-chevron-down"></span>
+  </a>
+
+ <ul class="dropdown-menu" id="menu1" aria-labelledby="drop4"> <li> <a href="/delComntPost?id=<%-blogs._id %>" onclick="return confirm('Are you sure you want to delete this post?');" >Delete</a></li>
+ </ul>
+<% } %> 
+
+
+</div>
+
+</h3>
+
+<div class="blog_date"><i class="fa fa-calendar" aria-hidden="true"></i>
+   <%- timeAgo(blogs.created_at); %> 
+ </div>
+
+<div class="likes blog_like">
+
+<% 
+var resultLike;
+var resultDisLike;
+var countLike;
+var countDisLike;
+if(blogs.likes){
+if(blogs.likes.length){
+var z= 1;
+var w =1;
+var liking=[];
+var disliking=[];
+for( var i = 0, len = blogs.likes.length; i < len; i++ ) {
+
+  if(blogs.likes[i].action == 1){
+
+      liking.push(blogs.likes[i]['userId']);
+var countLike = liking.length;
+      if(blogs.likes[i]['userId'] === user.id){
+      resultLike = 'yes';
+      }
+  }else if(blogs.likes[i].action == 0){
+disliking.push(blogs.likes[i]['userId']);
+var countDisLike = disliking.length;
+if(blogs.likes[i]['userId'] === user.id){
+      resultDisLike = 'yes';
+      }
+  }
+    
+}
+}
+}
+%>
+
+<a  class="likeONe <% if(resultLike){%>blue <% }%> <% if(!resultLike){ %>ev_like<% }%>" b_Id="<%- blogs.id %>"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</a><span class="counterLike"><% if(countLike){ %> <%- countLike %><% } %></span> 
+
+<a class="disOne <% if(resultDisLike){%>blue <% }%><% if(!resultDisLike){ %>ev_unlike <% } %>" b_Id="<%- blogs.id %>"><i class="fa fa-thumbs-down" aria-hidden="true"></i> DisLike</a><span class="counterDisLike"><% if(countDisLike){ %> <%- countDisLike %><% } %></span> 
+
+</div> 
+<style>
+
+.replyNow{
+  cursor: pointer;
+}
+.modal-body > .modal-login {
+    color: #333;
+    font-size: 18px;
+    text-align: center;
+     margin-top: 20px;
+}
+.modal-footer.mod_foot{
+  padding: 10px;
+}
+</style>
+
+<a class="comnt"> <i class="fa fa-comments" aria-hidden="true"></i>
+       Comments</a>
+
+
+  <div class="blog_desc">  <%- blogs.message %></div>
+
+
+<% if(blogs.image) {  
+ var data = blogs.image.split(',');
+for(var j=0;j<data.length; j++) {
+if(data[j]){
+%>
+<div class=""><img src="../uploads/post/<%- data[j] %>" style="width:500px"></div>
+
+
+
+<% }} }%>
+
+<% if(blogs.video) {  
+if(blogs.video.length){
+ var data = blogs.video.split(',');
+
+for(var j=0;j<data.length; j++) {
+if(data[j] && data[j] != '[object FileReader]'){
+%>
+<video  controls width='150px' height='150px'>
+<source src='../uploads/post/<%-data[j] %>' type='video/mp4'><source src='../uploads/post/<%-data[j] %>' type='video/mp3'></video>      
+
+<% }} } }%>
+
+</div>
+ <h4 class="comt_heading">Comments</h4>
+ <div class="septComment">
+      <% if(blogs.commentsIds){ if(blogs.commentsIds.length){
+      
+var comments = blogs.commentsIds;
+ var h=1;
+      var w=1;
+      var result;
+      var child;
+comments.forEach( function (comment,i){ 
+
+if(result){
+  if(comment.parentId === result){ %>
+ 
+  <div class="out child has">
+ <div class="user_cmt">
+ <div class="user">
+        <% if(comment.userId){
+        var userONe = comment.userId;
+         if(userONe.local.from =='local'){
+        var mainUser = userONe.local;
+        }else{
+         var mainUser = userONe.facebook;
+        }
+
+                        %>
+             
+                                 <%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;">  
+<% }
+}
+%>
+   </div>
+ <div class="comment">
+ <div class="user_name"><%= mainUser.user_name %></div>
+ <%- comment.message %>&nbsp;<%- timeAgo(comment.created_at); %>
+ <input type="hidden" value="<%- blogs.id %>" class="postId" >
+<input type="hidden" class="parent_id" value="<%- comment.order %>">
+<input type="hidden" class="order" value="<%- comment.order %>">
+<input type="hidden" class="type" value="PostReply">
+
+<input type="hidden" class="commtId" value="<%- comment.id %>">
+ <div><a class="replyNow">Reply</a></div>
+
+ </div>
+</div>
+ </div>
+ <%
+result = comment.order %>
+ <%  }else{ 
+
+ result = comment.order;%>
+</div>
+<input type="hidden" value="<%- comment.order %>" class="gCParnt">
+<div class="parent has">
+<div class="user_cmt">
+   <div class="user">
+        <% if(comment.userId){
+        var userONe = comment.userId;
+        if(userONe.local.from =='local'){
+        var mainUser = userONe.local;
+        }else{
+         var mainUser = userONe.facebook;
+        }
+                        %>
+             
+                                 <%  if(mainUser.photo !== ' '){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;">  
+<% }
+}
+%>
+  </div>
+ <div class="comment">
+ <div class="user_name"><%= mainUser.user_name %></div>
+ <%- comment.message %>&nbsp;<%- timeAgo(comment.created_at); %>
+ <input type="hidden" value="<%- blogs.id %>" class="postId" >
+<input type="hidden" class="parent_id" value="<%- comment.order %>">
+<input type="hidden" class="order" value="<%- comment.order %>">
+<input type="hidden" class="type" value="PostReply">
+
+<input type="hidden" class="commtId" value="<%- comment.id %>">
+ <div><a class="replyNow">Reply</a></div>
+
+ </div>
+</div>
+
+
+  <% h++; }
+}else{
+  result = comment.order;
+%>
+</div>
+
+<input type="hidden" value="<%- comment.order %>" class="gCParnt">
+  <div class="parent has">
+  <div class="user_cmt">
+ <div class="user">
+        <% if(comment.userId){
+        var userONe = comment.userId;
+         if(userONe.local.from =='local'){
+        var mainUser = userONe.local;
+        }else{
+         var mainUser = userONe.facebook;
+        }
+                        %>
+            
+                     <%  if(mainUser.photo){ %>
+<img src="./uploads/images/<%= mainUser.photo %>" class="showProImg" style="width:40px;">
+<%} else{ %>
+<img src="../images/admin/1.jpg" class="showProImg" style="width:40px;">  
+<% }
+}
+%>
+   </div>
+ <div class="comment">
+  <div class="user_name"><%= mainUser.user_name %></div>
+ <%- comment.message %>&nbsp;<%- timeAgo(comment.created_at); %>
+ <input type="hidden" value="<%- blogs.id %>" class="postId" >
+<input type="hidden" class="parent_id" value="<%- comment.order %>">
+<input type="hidden" class="order" value="<%- comment.order %>">
+<input type="hidden" class="type" value="PostReply">
+
+<input type="hidden" class="commtId" value="<%- comment.id %>">
+ <div><a class="replyNow">Reply</a></div>
+ 
+ </div>
+ 
+ </div>
+
+<% h++;
+}
+
+%>
+<%  w++; }); %>
+      
+
+      <%} } %>
+</div>
+
+<div class="messageCounter">
+<form class="uploadComment">
+<input type="hidden" value="<%- blogs.id %>" class="postId" >
+<input type="hidden" class="parent_id" value="0">
+<input type="hidden" class="order" value="<%- u %>">
+<input type="hidden" class="type" value="PostComment">
+<div class="user_mess_inp clearfix u_1">
+
+  <div class="send_comt">
+      <input type="text" name="user mesg" placeholder="Post your comment" class="form-control text_data mainFil" onkeypress="fastSending(event);">
+      <button type="submit" class="btn btn_main pull-right btn_blue_bg sending">Post</button></form>
+    <!-- onkeypress='fastSending(event);'-->
+  </div>
+
+</div>
+
+   </div>
+</div>
+
+
+    <%  }); %>
+    </div>
+    <div class="clearfix"></div>
+      <div class="resNot"></div>
+<img src="./images/loading.gif" class="loading">
+    </div>
+</div>
+
+</div></div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade modeG" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+    
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <p class="modal-login">You need to <a href="/login"> login </a> first to like or comment the post</p>
+      </div>
+      <div class="modal-footer mod_foot">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+$(document).ready( function (){
+$( ".parent" ).each(function( index ) {
+if($(this).find('.child').length > 0){
+   $(this).find('.child').hide();
+    var child = $(this).find('.child').length;
+  $(this).find('.user_cmt:first').after('<a class="showHideReply">Views '+child+' Replies</a>')
+}
+});
+$( ".mainContainer" ).each(function( index ) {
+if($(this).find( ".parent" ).length > 2){
+ 
+   $(this).find('.parent').not(':last').hide();
+
+ $(this).find('.parent:last').before('<a class="showHideComment">Views all comments</a>')
+}
+});
+$('.showHideReply').click( function (){
+$(this).parents('.parent').find('.child').show();
+$(this).hide();
+});
+$('.showHideComment').click( function (){
+$(this).parents('.mainContainer').find('.parent').show();
+$(this).hide();
+});
+});
+</script>
+
+<style>
+.likeONe.ev_like {
+    cursor: pointer;
+}
+.disOne.ev_unlike {
+    cursor: pointer;
+}
+.comnt {
+    cursor: pointer;
+}
+</style>

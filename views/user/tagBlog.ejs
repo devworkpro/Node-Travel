@@ -1,0 +1,124 @@
+<script src="../frontend/js/blog.js" type="text/javascript"></script>
+
+ <input type="hidden" value="<%= user %>" id="logOrNot">
+<input type="hidden" value="<%- val %>" class="val">
+<div class="container blogContainer" style="margin-top: 80px;">
+<div class="col-md-3 pull-right">
+  <div class="search_blg">
+    <input type="search" name="search blg" class="form-control searchBlog" placeholder="Search By Title">
+
+    <a class="serchRES"><i class="fa fa-search" aria-hidden="true"></i></a>
+
+  </div>
+  <div class="showFind">
+    
+  </div>
+  <div class="recent_post">
+    <h3>Recent posts</h3>
+    <ul>
+    <% if(latested.length > 0){ %>
+        <% latested.forEach( function(latest){ %>
+      <li><a target ="blank" href="/readBlog?id=<%- latest.id %>"><%- latest.title %></a></li>
+     <% }); %>
+     <% }else{ %>
+No Latest Blog.
+     <% } %>
+    </ul>
+  </div><!-- recent_post -->
+
+</div>
+<div class="col-md-9 pull-left getBig">
+  <% JSON.stringify(blog);
+      console.log(blog);
+var u = 1;
+    blog.forEach( function(blogs){ %>
+
+ <div class="mainContainer" cmntid="<%- blogs.id %>">
+<h3 class="blog_title"> <%- blogs.title %> </h3>
+
+
+
+<div class="blog_date"><a target ="blank" href="/readBlog?id=<%- blogs.id %>"><i class="fa fa-calendar" aria-hidden="true"></i>
+   <%- timeAgo(blogs.created_at); %>
+   <!-- <%= moment(blogs.created_at).format( 'DD/MM/YYYY') %><br> -->
+    
+ </a></div>
+ <div class="comnt"><a target ="blank" href="/readBlog?id=<%- blogs.id %>">
+ <i class="fa fa-comments" aria-hidden="true"></i>
+      <% if(blogs.commentsIds.length){%>
+     
+ <%- blogs.commentsIds.length %> 
+      
+
+      <%} %> Comments
+</a></div>
+      <!-- end of comment section -->
+
+<div class="blog_like"><a target ="blank" href="/readBlog?id=<%- blogs.id %>"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+    <% if(blogs.likes){ if(blogs.likes.length){%>
+     
+ <%- blogs.likes.length %> 
+      
+
+      <%} }%>Likes</a></div>
+
+      <!-- comment section -->
+
+
+<div class="blog_desc">
+    <%- blogs.message %>
+<% var tag =  blogs.tags.toString().split(','); 
+
+for(var i=0;i<tag.length; i++) {
+if(tag[i]){ 
+var length = parseInt(tag.length)-parseInt(1); %>
+  <a href="/tag?tags=<%-tag[i]%>" >#<%- tag[i] %></a>
+  <% if(i < length){
+  %>,
+  <% 
+  } }
+}
+%>
+<!-- <% if(blogs.image) {  
+ var data = blogs.image.split(',');
+for(var j=0;j<data.length; j++) {
+if(data[j]){
+%>
+
+<div class="blog_img"><img src="../uploads/blog/<%- data[j] %>"></div>
+
+
+
+<% }} }%> -->
+</div>
+<style>
+.child{
+  margin-left: 20px;
+
+}
+.replyNow{
+  cursor: pointer;
+}
+</style>
+
+  <div class="read_more"><a target ="blank" href="/readBlog?id=<%- blogs.id %>"  class="wpcf7-submit">Read More.. </a></div>   
+</div>
+
+
+<!-- end of container -->
+
+
+
+
+    <%  }); %>
+    </div>
+     <div class="resBNot"></div>
+     <img src="./images/loading.gif" class="loading" style="display:none">
+</div>
+</div>
+<!-- Modal -->
+
+
+
+
+

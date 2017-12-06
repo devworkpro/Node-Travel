@@ -1,0 +1,5 @@
+  <ul>
+  <% blog.forEach( function(blogs){ %>
+	  <li><a target ="blank" href="/readBlog?id=<%- blogs.id %>"><%- blogs.title %></a></li>
+     <% }); %>
+</ul>

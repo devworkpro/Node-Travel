@@ -1,0 +1,59 @@
+<div class="page-inner">
+
+    <div id="main-wrapper">
+        <div class="row m-t-md">
+        <div class="container">
+            <h1>All Plan List</h1>
+            <% if (message.length > 0) { %>
+                <div class="alert alert-success">
+                    <%= message %>
+                </div>
+                <% } %>
+                <a href="/add_plan"><button type="button" class="btn btn-info">Add Plan</button></a>
+                    <!-- List all user in  FORM -->
+                     <div class="table-responsive">
+                    <table class="table table-hover table-bordered plan-li">
+                        <thead>
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>Plan Name</th>
+                                <th>Price</th>
+                                <th>Currency</th>
+                                <th>Plan Duration</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% $i = 1; %>
+                                <% planList.forEach(function(Plan) { %>
+                                    <tr>
+                                        <td>
+                                            <%= $i; %>
+                                        </td>
+                                        <td>
+                                            <%= Plan.plan_name; %>
+                                        </td>
+                                        <td>
+                                            <%= Plan.price; %>
+                                        </td>
+                                        <td>
+                                            <%= Plan.currency; %>
+                                        </td>
+                                        <td>
+                                            <%= Plan.plan_duration; %>
+                                        </td>
+
+                                        
+                                        <td><a href="/editPlan?id=<%= 
+                                        Plan.id; %>">edit</a>/<a href="delPlan?id=<%= Plan.id; %>" onclick="return confirm('Are you sure you want to that Plan?');">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <% $i++; %>
+                                        <% }); %>
+                        </tbody>
+                    </table>
+       </div>
+        </div>
+        </div>
+    </div>
+</div>

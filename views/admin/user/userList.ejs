@@ -1,0 +1,174 @@
+
+<div class="page-inner">
+
+   <div id="main-wrapper">
+      <div class="container">
+      <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+        <div class="row m-t-md">
+            <h1>All User List</h1>
+
+            <% if (message.length > 0) { %>
+                <div class="alert alert-success">
+                    <%= message %>
+                </div>
+                <% } %>
+                 <a href="/add_user"><button type="button" class="btn btn-info">Add User</button></a>
+                    <!-- List all user in  FORM -->
+                      <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr >
+                               <th>Sr.No</th>
+                                 <th>Action</th>
+                                <th>User Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                 <th>Photo</th>
+                                <th>Phone</th>
+                                  <th>Age</th>
+                                 <th>Height</th>
+                                 <th>Weight</th>
+                                 <th>Waist</th>
+                                 <th>County(Code)</th>
+                                 <th>Fitness Level</th>
+                                 <th>User Goal</th>
+                                  <th>WOD Routine</th>
+                                <th>Package</th>
+                                <th>status</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% $i = 1; %>
+                                <% usersList.forEach(function(Users) {
+                                if(Users.local.from == 'local'){ %>
+                                    <tr >
+                                        <td>
+                                        
+                                            <%= $i; %>
+                                        </td>
+                                        <td><a href="userAction?id=<%= Users._id; %>&status=view">View</a>/<a href="userAction?id=<%= Users._id; %>&status=edit">edit</a>/<a href="delUser?id=<%= Users._id; %>" onclick="return confirm('Are you sure you want to delete record of that User?');">Delete</a>
+                                        </td>
+                                        <td>
+                                            <%= Users.local.user_name; %>
+                                        </td>
+                                        <td>
+                                            <%= Users.local.first_name; %>
+                                        </td>
+                                        <td>
+                                            <%= Users.local.last_name; %>
+                                        </td>
+                                        <td>
+                                            <%= Users.local.email; %>
+                                        </td>
+
+                                         <td>
+                                           <% if(Users.local.photo){ %>
+<img src="./uploads/images/<%= Users.local.photo %>" style="width:50px">
+<% }else{ %>
+  <img src=" ../images/admin/1.jpg" style="width:50px">
+<% }%>
+                                        </td>
+                                        
+                                        <td>
+                                            <%= Users.local.phone; %>
+                                        </td>
+
+ <td><%= Users.local.age; %></td>
+
+                                          <td><%= Users.local.height; %></td>
+                                 <td><%= Users.local.weight; %></td>
+                                 <td><%= Users.local.waist; %></td>
+                                 <td><%= Users.local.country; %></td>
+                                 <td><%= Users.local.fitness; %></td>
+                                  <td><%= Users.local.goal; %></td>
+                                   <td><%= Users.local.WOD_routine; %></td>
+
+                                   <td>      
+                             <% plan.forEach(function(plans){  %>
+                          
+
+                            <% if(Users.local.plan_id == plans._id){ %>
+                                        <%= plans.plan_name + '(' + plans.currency + plans.price + ')'%>
+                                         <% }%>  
+                                      
+                                        <% });%>
+                                        </td>
+                                          <td>
+                                            <% if(Users.local.status =='1'){ %> <a href="userAction?id=<%= Users._id; %>&log=1&status=upStatus">Active</a>
+                                                <% }else{%><a href="userAction?id=<%= Users._id; %>&log=0&status=upStatus">Not Active</a>
+                                                    <% } %>
+                                        </td>
+                                        <td><a href="userAction?id=<%= Users._id; %>&status=view">View</a>/<a href="userAction?id=<%= Users._id; %>&status=edit">edit</a>/<a href="delUser?id=<%= Users._id; %>" onclick="return confirm('Are you sure you want to delete record of this User?');">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <% }else{%>
+                                       <tr>
+                                        <td>
+                                            <%= $i; %>
+                                        </td>
+                                        <td>
+                                            <%= Users.facebook.user_name; %>
+                                        </td>
+                                        <td>
+                                            <%= Users.facebook.first_name; %>
+                                        </td>
+                                        <td>
+                                            <%= Users.facebook.last_name; %>
+                                        </td>
+                                        <td>
+                                            <%= Users.facebook.email; %>
+                                        </td>
+
+                                         <td>
+                                           <% if(Users.facebook.photo){ %>
+<img src="./uploads/images/<%= Users.facebook.photo %>" style="width:50px">
+<% }else{ %>
+  <img src=" ../images/admin/1.jpg" style="width:50px">
+<% }%>
+                                        </td>
+                                        
+                                        <td>
+                                            <%= Users.facebook.phone; %>
+                                        </td>
+                                        
+ <td><%= Users.facebook.age; %></td>
+
+                                          <td><%= Users.facebook.height; %></td>
+                                 <td><%= Users.facebook.weight; %></td>
+                                 <td><%= Users.facebook.waist; %></td>
+                                 <td><%= Users.facebook.country; %></td>
+                                 <td><%= Users.facebook.fitness; %></td>
+                                   <td><%= Users.facebook.goal; %></td>
+
+                                  <td><%= Users.facebook.WOD_routine; %></td>
+
+                                   <td>      
+                             <% plan.forEach(function(plans){  %>
+                          
+
+                            <% if(Users.facebook.plan_id == plans._id){ %>
+                                        <%= plans.plan_name + '(' + plans.currency + plans.price + ')'%>
+                                         <% }%>  
+                                      
+                                        <% });%>
+                                        </td>
+                                          <td>
+                                            <% if(Users.facebook.status =='1'){ %> <a href="userAction?id=<%= Users._id; %>&log=1&status=upStatus">Active</a>
+                                                <% }else{%><a href="userAction?id=<%= Users._id; %>&log=0&status=upStatus">Not Active</a>
+                                                    <% } %>
+                                        </td>
+                                        
+                                    </tr>
+
+                                    <% }%>
+                                    <% $i++; %>
+                                        <% }); %>
+                        </tbody>
+                    </table>
+       </div>
+        </div>
+        </div>
+    </div>
+</div>

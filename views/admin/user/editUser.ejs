@@ -1,0 +1,237 @@
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+
+ /********signUp form validation *********/
+            $('#signUp').submit(function(e) {
+            var valid = $("#signUp").valid();
+                if (valid) {
+              
+                } else {
+                    e.preventDefault();
+                }
+            });
+        $('#signUp').validate({
+            rules: {
+                /*'password': {
+                    required: true,
+                    minlength: 6
+                },*/
+
+                'user_name': 'required',
+                'first_name': 'required',
+                'last_name': 'required',
+               //  'age': 'required',
+                // 'goal' : 'required',
+                'email': {
+                    required: true,
+                    email: true
+                },
+              //  'height': 'required',
+              //  'weight': 'required',
+              //  'waist': 'required',
+              //  'fitness': 'required',
+                'package': 'required',
+                
+            },
+            messages: {
+                user_name: {
+                    required: "User name can't be blank"
+                },
+                first_name: {
+                    required: "First name can't be blank"
+                },
+                last_name: {
+                    required: "Last name can't be blank"
+                },
+                email: {
+                    required: "Email can't be blank"
+                },
+               /* goal: {
+                    required: "Goal Field can't be blank"
+                },
+                */
+                package: {
+                    required: "Please choose at least one package"
+                },
+               /* password: {
+                    required: "Password can't be blank",
+                    minlength: "Password should be at least {0} characters long"
+                },*/
+                    /* height: {
+                        required: "Height can't be blank"
+                    },
+                     weight: {
+                        required: "Weight can't be blank"
+                    },
+                     waist: {
+                        required: "Waist can't be blank"
+                    },
+                     fitness: {
+                        required: "Please Choose your fitness level"
+                    },
+                     age: {
+                        required: "Age can't be blank"
+                    }*/
+            },
+
+
+        });
+
+        /*************For phone valid******/
+    });
+
+    /********end of signUp form validation *********/
+    </script>
+<div class="page-inner">
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+            <div id="main-wrapper">
+              <div class="row m-t-md">
+              <div class="col-md-12">
+                <div class="">
+                   <div class="panel panel-white">
+                      <div class="panel-heading clearfix">
+                      <h4 class="panel-title">Edit User</h4>
+                      </div>
+                    <!-- show any messages that come back with authentication -->
+
+
+                    <!-- LOGIN FORM -->
+                    <div class="panel-body">
+                    <form action="/userAction?id=<%= userId %>&status=update&plac=<%= editUser.from %>" method="post" id="signUp" class="form-horizontal">
+
+                    
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">User Name</label>
+                            <div class="col-sm-10">
+          <input type="text" class="form-control" value="<%= editUser.user_name %>" name="user_name"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">First Name</label>
+                            <div class="col-sm-10">
+<input type="text" class="form-control" value="<%= editUser.first_name %>" name="first_name"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Last Name</label>
+                            <div class="col-sm-10">
+<input type="text" class="form-control" value="<%= editUser.last_name %>" name="last_name"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+<input type="email" class="form-control" value="<%= editUser.email %>" data-provide="typeahead" autocomplete="off" name="email"></div>
+                        </div>
+
+              <div class="form-group parentsDiv">
+                            <label class="col-sm-2 control-label">Age</label>
+                            <div class="col-sm-10">
+                            <div class="input-group">
+<input type="text" class="form-control age" name="age" value="<%= editUser.age %>">
+                             <div class="input-group-addon">Yr</div>
+                             <span class="LayMesg err Phon_err"></span></div>
+             </div></div>
+
+
+                          <div class="form-group parentsDiv">
+                            <label class="col-sm-2 control-label">Height</label>
+                            <div class="col-sm-10"><div class="input-group">
+                            <input type="text" class="form-control height" name="height" value="<%= editUser.height %>"><div class="input-group-addon">in/cm</div>
+                             <span class="LayMesg err Phon_err"></span></div></div>
+             </div>
+
+             <div class="form-group parentsDiv">
+                            <label class="col-sm-2 control-label">Weight</label>
+                            <div class="col-sm-10"><div class="input-group">
+                            <input type="text" class="form-control weight" name="weight" value="<%= editUser.weight %>"><div class="input-group-addon">lb/kg</div></div></div>
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+              <div class="form-group parentsDiv">
+                            <label class="col-sm-2 control-label">Waist</label>
+                            <div class="col-sm-10"><div class="input-group">
+                            <input type="text" class="form-control waist" name="waist" value="<%= editUser.waist %>"><div class="input-group-addon">in/cm</div></div></div>
+                             <span class="LayMesg err Phon_err"></span>
+             </div>
+
+                  <div class="form-group">
+                            <label class="col-sm-2 control-label">Fitness Levels </label>
+                           
+                             <div class="col-sm-10">  <select name="fitness" class="form-control">
+ <option value="">Select Fitness Level</option>
+                         
+                  <option value="Beginner" <% if(editUser.fitness == 'Beginner'){ %>selected ='selected'<% } %>>Lifestyle (Beginner)</option>
+                  <option value="Intermediate" <% if(editUser.fitness == 'intermediate'){ %>selected ='selected'<% } %>>Performance (intermediate)</option>
+                  <option value="advanced" <% if(editUser.fitness == 'advanced'){ %>selected ='selected'<% } %>>Competitor (advanced)</option>
+
+
+                </select></div>
+
+                         
+                        </div>
+
+     <div class="form-group">
+                          <label class="col-sm-2 control-label">  Goal </label>
+                           <div class="col-sm-10">
+                               <select name="goal" class="form-control">
+ <option value="">Select Goal</option>
+                         
+                  <option value="Body Composition or Weight Goal"<% if(editUser.goal == 'Body Composition or Weight Goal'){ %>selected ='selected'<% } %>>Body Composition or Weight Goal</option>
+
+                  <option value="Performance Goal" name="goal" <% if(editUser.goal == 'Performance Goal'){ %>selected ='selected'<% } %>>Performance Goal</option>
+
+                  <option value="Accountability Goal" <% if(editUser.goal == 'Accountability Goal'){ %>selected ='selected'<% } %>>Accountability Goal</option>
+
+
+                </select>
+</div>
+                         
+                        </div>
+
+                   
+
+
+
+
+                       <!--     <div class="form-group">
+                            WOD Routine :  
+                            <label>
+            <input type="radio" value="Daily WOD" name="WOD_routine"  <% if(editUser.WOD_routine == 'Daily WOD'){ %>checked ='checked'<% } %> >Daily WOD</label>
+
+             <label>
+            <input type="radio"  value="Travel WOD on Your way" name="WOD_routine"  <% if(editUser.WOD_routine == 'Travel WOD on Your way'){ %>checked ='checked'<% } %> >Travel WOD on Your way</label>
+                        </div> -->
+
+
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Package </label>
+             <div class="col-sm-10"> <select name="package" class="form-control">
+<option value="">Please select plan</option>
+                           
+                       <% plans.forEach(function(Plan) { %> 
+                       <option value="<%=Plan.id %>" <% if(Plan.id == editUser.plan_id){ %>selected ='selected'<% } %>><%=Plan.plan_name + ' (' + Plan.currency + Plan.price +') for ' + Plan.plan_duration + ' duration'%></option>  
+          
+                        
+          <% }); %>
+          </select></div>
+          </div>
+
+                            <input type="hidden" class="form-control" value="user" name="role">
+                            <button type="submit" class="btn btn-success pull-right btn-lg">Update</button>
+
+                
+                    </form>
+                    </div>
+                </div></div>
+            </div>
+             </div>
+            </div>

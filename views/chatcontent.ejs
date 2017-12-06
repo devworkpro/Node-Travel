@@ -1,0 +1,6 @@
+  <%   data.forEach( function (data1){ %>	
+		<!-- <p class="chat-masage "> -->
+		<div class="user-image dh "><!-- <img src="./uploads/images/Fri Nov 17 2017 17:38:56 GMT+0530 (IST)_prfile.jpg"> --></div>
+                     <p class="chat-masage "><%- data1.msg_desc %>
+<input type="hidden" value="<%- data1.id %>" class="chatlastid"></p>
+    <%   }); %>

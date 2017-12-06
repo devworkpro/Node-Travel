@@ -1,0 +1,103 @@
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+        $('#planAdd').submit(function(e) {
+          
+            var valid = $("#planAdd").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#planAdd').validate({
+            rules: {
+                'plan_name': 'required',
+                'price': 'required',
+                'currency': 'required',
+                'plan_duration': 'required'
+             },
+            messages: {
+                plan_name: {
+                    required: "Plan can't be blank"
+                },
+                price: {
+                    required: "Price can't be blank"
+                },
+                currency: {
+                    required: "Currency can't be blank",
+                  }, 
+                plan_duration: {
+                    required: "Plan Duration can't be blank"
+                }
+           }
+
+        });
+});
+
+
+/********end of form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+       <div id="main-wrapper">
+       <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+              <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8 add-plan-form">
+                <div class="row m-t-md">
+                    <h1 class="add-plan-heading">Edit Plans</h1>
+
+
+            
+
+                    <!-- LOGIN FORM -->
+                    <form action="/updatetraining?id=<%=edittraininginfo.id %>&status=update" method="POST" id="planAdd" enctype="multipart/form-data">
+                        
+                     <div class="form-group">
+                            <label>Training Title </label>
+                            <input type="text" class="form-control" name="trainer_title" value="<%= edittraininginfo.trainer_title %>" >
+                        </div>
+                        <div class="form-group">
+                        
+                        
+                        
+                        
+                        <div class="form-group">
+                            <label>Training profile</label>
+                           
+                            <input type="file" class="form-control " id="e_Img_file" name=" training_profile">
+
+
+                            
+                        </div>
+                        <img src="/uploads/trainingtype/<%- edittraininginfo.training_profile %>" alt="image" class="member_photo" width="250" height="250">
+
+                        
+
+                      <div class="clearfix"></div>
+
+                        <button type="submit" class="btn btn-warning btn-lg sv">Save</button>
+
+                    </form>
+                </div>
+            </div>
+            </div>
+            </div>
+            <style type="text/css">
+                 #e_Img_file {
+                    border: 0;
+                    background: transparent;
+                    line-height: 23px;
+                    height: 31px;
+                    display: ruby-text-container;
+                }
+                .btn.btn-warning.btn-lg.sv {
+    margin-top: 15px;
+    padding: 10px 34px;
+}
+            </style>

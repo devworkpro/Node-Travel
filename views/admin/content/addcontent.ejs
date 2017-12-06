@@ -1,0 +1,315 @@
+
+
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+        $('#planAdd').submit(function(e) {
+          
+            var valid = $("#planAdd").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#planAdd').validate({
+            rules: {
+                'plan_name': 'required',
+                'price': 'required',
+                'currency': 'required',
+                'plan_duration': 'required'
+             },
+            messages: {
+                plan_name: {
+                    required: "Plan can't be blank"
+                },
+                price: {
+                    required: "Price can't be blank"
+                },
+                currency: {
+                    required: "Currency can't be blank",
+                  }, 
+                plan_duration: {
+                    required: "Plan Duration can't be blank"
+                }
+           }
+
+        });
+});
+
+
+/********end of form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+             <div id="main-wrapper">
+             <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+              <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8 add-plan-form">
+                <div class="row m-t-md">
+                    <h1 class="add-plan-heading">Add Content</h1>
+
+            
+
+                  
+                    
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $("#myTab li:eq(0) a").tab('show');
+});
+</script>
+<style type="text/css">
+    .bs-example{
+        margin: 20px;
+    }
+    .col-sm-8 {
+    width: 96.667%;
+}
+@media (min-width: 320px) and (max-width: 480px){
+    #myTab li {
+                width: 100%;
+                margin: 5px 0;
+}
+}
+@media (min-width: 481px) and (max-width: 640px){
+    #myTab li {
+                width: 50%;
+                margin: 5px 0;
+                padding: 5px;
+}
+}
+@media (min-width: 641px) and (max-width: 767px){
+    #myTab li {
+                width: 33%;
+                margin: 5px 0;
+                padding: 5px;
+}
+}
+</style>
+</head>
+<body>
+<div class="bs-example">
+    <ul class="nav nav-tabs" id="myTab">
+        <li><a data-toggle="tab" href="#sectionA">Home page content</a></li>
+        <li><a data-toggle="tab" href="#sectionB">Trainer content</a></li>
+        <li><a data-toggle="tab" href="#sectionc">Home page bottom content</a></li>
+        <li><a data-toggle="tab" href="#sectiond">Trainers</a></li>
+        <li><a data-toggle="tab" href="#sectione">Add training type</a></li>
+        <li><a data-toggle="tab" href="#sectionf">Subscription plan content</a></li>
+        <li><a data-toggle="tab" href="#sectiong">Add Banner</a></li>
+    </ul>
+    <div class="tab-content clearfix">
+        <div id="sectionA" class="tab-pane fade in active">
+            <form action="/updateContent?id=<%= editContent.id %>" method="POST" id="planAdd">
+                        <div class="form-group">
+                            <label>Content Heading</label>
+                             <input type="text" class="form-control" name="content_heading" value="<%= editContent.content_heading %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Content Description</label>
+                            
+                            <textarea rows="7" cols="50" name="content_desc" class="form-control" ><%= editContent.content_desc %>
+
+
+                            </textarea>
+                            <span class="Phon_err"></span>
+                        </div>
+
+                         
+                        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+
+                    </form>
+        </div> 
+        <div id="sectionB" class="tab-pane fade">
+            <form action="/updatetrainContent?id=<%= editcontent2.id %>" method="POST" id="categoryAdd">
+                        <div class="form-group">
+                            <label>Heading</label>
+                            <input type="text" class="form-control" name="heading" value="<%= editcontent2.heading %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <!-- <input type="text" class="form-control" name="desc"> -->
+                            <textarea rows="7" cols="50" name="desc" class="form-control" ><%= editcontent2.desc %>
+
+
+                            </textarea>
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+
+                    </form>
+        </div>
+        <div id="sectionc" class="tab-pane fade">
+            <form action="/add_img?id=<%= editcontent3.id %>" method="post" id="videoAdd" enctype="multipart/form-data" >
+<div class="form-group">
+                            <label>Heading</label>
+                            <input type="text" class="form-control" name="title" value="<%= editcontent3.title %>" >
+                        </div>
+
+                        <div class="form-group img-d">
+                            <label > Thumbnail</label>
+                            <div "><input type="file" class="" id="e_Img_file" name=" home_img"></div>
+                            <img src="./uploads/homepageimage/<%= editcontent3.home_img %>" height="200" width="220">
+                             
+                              <span class="value"></span>
+                        </div>
+                       
+
+                        <button type="submit" class="btn btn-success btn-lg pull-right">Save</button>
+
+                    </form>
+        </div>
+        <div id="sectiond" class="tab-pane fade in active m-div clearfix">
+        <h2 class="h-div">
+<a href="/addtrainers" class="">Add new trainer</a></h2>
+ 
+        <!-- <% if(trainerinfo){  trainerinfo.forEach( function (trainerinf){ %>
+
+    <div class="members animated fadeInLeft visible" data-animation="fadeInLeft" data-animation-delay="300"><div class="content_slider_text_block_wrap"><div class="team-img"><img src="/uploads/trainerprofile/<%- trainerinf.trainer_profile %>" alt="image" class="member_photo" width="250" height="320"></div><div class="team-inner"><div class="team-top center"><h4 class="membername"><%- trainerinf.trainer_name %></h4><br><span class="membername_dec"><%- trainerinf.trainig_type %></span></div></div></div><div class="clear"></div></div><div class="sharemedeia"><a target="_self" href="<%- trainerinf.trainer_facebook %>"><i class="fa fa-facebook"></i></a><a target="_self" href="<%- trainerinf.trainer_twiter %>"><i class="fa fa-twitter"></i></a><a target="_self" href="<%- trainerinf.trainer_google %>"><i class="fa fa-google-plus"></i></a></div>
+<a href="/edittrainer?id=<%=trainerinf.id; %>">Edit</a>
+ <a href="deltrainer?id=<%=trainerinf.id; %>" onclick="return confirm('Are you sure to delete?');">Delete</a>
+<%   }); }%> -->
+
+<div class="members_section">
+<div class="row">
+<% if(trainerinfo){  trainerinfo.forEach( function (trainerinf){ %>
+    <div class="col-sm-4 col-xs-6 team_m">
+        <img src="/uploads/trainerprofile/<%- trainerinf.trainer_profile %>" alt="image" class="member_photo img-responsive">
+
+        <h4 class="membername"><%- trainerinf.trainer_name %><span class="membername_dec">(<%- trainerinf.trainig_type %>)</span></h4>
+
+        <div class="sharemedeia">
+            <a target="_self" href="%- trainerinf.trainer_facebook"><span class="s-bg"><i class="fa fa-facebook"></i></span></a>
+
+            <a target="_self" href=""<%- trainerinf.trainer_twiter %>"><span class="s-bg"><i class="fa fa-twitter"></i></span></a>
+
+            <a target="_self" href="<%- trainerinf.trainer_google %>"><span class="s-bg"><i class="fa fa-google-plus"></i></span></a></div>
+
+        <div class="ed_de">
+
+        <a href="/edittrainer?id=<%=trainerinf.id; %>">Edit</a>
+
+        <a href="deltrainer?id=<%=trainerinf.id; %>" onclick="return confirm('Are you sure to delete?');">Delete</a>
+
+        </div>
+
+    </div>  <!--col-sm-4-->
+<%   }); }%>
+    
+
+   
+
+</div>  <!--row-->
+</div>  <!--members_section-->  
+
+
+        </div>
+             <div id="sectione" class="tab-pane fade in active">
+
+
+<h2 class="h-div"><a href="/addtrainingtype" >Add new training type</a></h2>
+ 
+         
+
+            
+ 
+              <div class="members_section">
+<div class="row">
+<% if(traininginfo){  traininginfo.forEach( function (traininginf){ %>
+    <div class="col-sm-4 col-xs-6 team_m">
+        <img src="/uploads/trainingtype/<%- traininginf.training_profile %>" alt="image" class="member_photo img-responsive">
+
+        <h4 class="membername"><%- traininginf.trainer_title %></h4>
+
+       
+
+        <div class="ed_de">
+
+        <a href="/edittraining?id=<%=traininginf.id; %>">Edit</a>
+
+        <a href="deltrainingtype?id=<%=traininginf.id; %>" onclick="return confirm('Are you sure to delete?');">Delete</a>
+
+        </div>
+
+    </div>  <!--col-sm-4-->
+<%   }); }%>
+    
+
+   
+
+</div>  <!--row-->
+</div>  <!--members_section-->       
+                    
+                </div>
+          <div id="sectionf" class="tab-pane fade in active">
+<form action="/subsplanContent?id=<%= plancontents.id %>" method="POST" id="planAdd">
+                        
+<div class="form-group">
+                            <label>Heading</label>
+                            <input type="text" class="form-control" name="title" value="<%= plancontents.title %>"  >
+                        </div>
+                        <div class="form-group">
+                            <label>Content Description</label>
+                            
+                            <textarea rows="7" cols="50" name="content_desc" class="form-control" ><%= plancontents.content_desc %>
+
+                            </textarea>
+                            <span class="Phon_err"></span>
+                        </div>
+
+                         
+                        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+
+                    </form>
+          </div>
+ <div id="sectiong" class="tab-pane fade in active">
+ <h2 class="h-div">
+<a href="/addbanner" class="">Add banner image</a></h2>
+
+
+<div class="members_section">
+<div class="row">
+<% if(bannerinfo){  bannerinfo.forEach( function (bannerinf){ %>
+    <div class="col-sm-4 col-xs-6 team_m">
+        <img src="/uploads/bannerimage/<%- bannerinf.banner_image %>" alt="image" class="member_photo img-responsive">
+
+        
+
+        
+
+        <div class="ed_de">
+
+        <a href="/edibanner?id=<%=bannerinf.id; %>">Edit</a>
+
+        <a href="deletebanner?id=<%=bannerinf.id; %>" onclick="return confirm('Are you sure to delete?');">Delete</a>
+
+        </div>
+
+    </div>  <!--col-sm-4-->
+<%   }); }%>
+    
+
+   
+
+</div>  <!--row-->
+</div>  <!--members_section-->  
+
+ </div>
+
+    </div>
+</div>
+</body>
+</html>                            
+                </div>
+            </div>
+            </div>
+            </div>
+
+            

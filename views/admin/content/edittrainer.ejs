@@ -1,0 +1,114 @@
+<script type="text/javascript">
+    /********signUp form validation *********/
+    $(document).ready(function() {
+        $('#planAdd').submit(function(e) {
+          
+            var valid = $("#planAdd").valid();
+            if (valid) {} else {
+                e.preventDefault();
+            }
+        });
+      $('#planAdd').validate({
+            rules: {
+                'plan_name': 'required',
+                'price': 'required',
+                'currency': 'required',
+                'plan_duration': 'required'
+             },
+            messages: {
+                plan_name: {
+                    required: "Plan can't be blank"
+                },
+                price: {
+                    required: "Price can't be blank"
+                },
+                currency: {
+                    required: "Currency can't be blank",
+                  }, 
+                plan_duration: {
+                    required: "Plan Duration can't be blank"
+                }
+           }
+
+        });
+});
+
+
+/********end of form validation *********/
+</script>
+<div class="page-inner">
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger">
+            <%= message %>
+        </div>
+        <% } %>
+
+       <div id="main-wrapper">
+       <a class="btn btn-success btn-lg " href="javascript: history.go(-1)">←Back To previous page</a>
+              <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-8 add-plan-form">
+                <div class="row m-t-md">
+                    <h1 class="add-plan-heading">Edit Trainers</h1>
+
+
+            
+
+                    <!-- LOGIN FORM -->
+                    <form action="/updatetrainer?id=<%=editinfo.id %>&status=update" method="POST" id="planAdd" enctype="multipart/form-data">
+                        
+                     <div class="form-group">
+                            <label>Trainer Name </label>
+                            <input type="text" class="form-control" name="trainer_name" value="<%= editinfo.trainer_name %>" >
+                        </div>
+                        <div class="form-group">
+                            <label>Trainer Facebook  </label>
+                            <input type="text" class="form-control" name="trainer_facebook" value="<%= editinfo.trainer_facebook %>" >
+                        </div>
+                        <div class="form-group">
+                            <label>Trainer Twitter  </label>
+                            <input type="text" class="form-control" name="trainer_twiter" value="<%= editinfo.trainer_twiter %>" >
+                        </div>
+                        <div class="form-group">
+                            <label>Trainer Twitter Google+  </label>
+                            <input type="text" class="form-control" name="trainer_google" value="<%= editinfo.trainer_google %>" >
+                        </div>
+                        <div class="form-group">
+                            <label>Traiing Type  </label>
+                            <input type="text" class="form-control" name="trainig_type" value="<%= editinfo.trainig_type %>" >
+                        </div>
+                        <div class="form-group">
+                            <label>Trainer profile</label>
+                           
+                            <input type="file" class="form-control " id="e_Img_file" name=" trainer_profile">
+
+
+                            
+                        </div>
+                        <img src="/uploads/trainerprofile/<%= editinfo.trainer_profile %>" alt="image" class="member_photo" width="250" height="250">
+
+                        
+
+
+                         <div class="clearfix"></div>
+                        <button type="submit" class="btn btn-warning btn-lg sv">Save</button>
+
+                    </form>
+                </div>
+            </div>
+            </div>
+            </div>
+            <style type="text/css">
+                #e_Img_file {
+                    border: 0;
+                    background: transparent;
+                    line-height: 23px;
+                    height: 31px;
+                    display: ruby-text-container;
+                }
+                .btn.btn-warning.btn-lg.sv {
+    margin-top: 15px;
+    padding: 10px 34px;
+}
+            </style>

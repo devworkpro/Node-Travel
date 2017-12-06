@@ -1,0 +1,107 @@
+<script>
+ /********contact form validation *********/
+ $(document).ready( function(){
+            $('#contact').submit(function(e) {
+                var valid = $("#contact").valid();
+                if (valid) {
+                  
+                } else {
+                    e.preventDefault();
+                }
+            });
+            $('#contact').validate({
+                rules: {
+                   
+                    'senderName': 'required',
+                    'senderEmail': {
+                        required: true,
+                        email: true
+                    },
+                    'subject': 'required',
+                    'message': 'required',
+                },
+                messages: {
+                    senderName: {
+                        required: "Name can't be blank"
+                    },   
+                    subject: {
+                        required: "Subject can't be blank"
+                    },
+                    senderEmail: {
+                        required: "Email can't be blank"
+                    },
+                    message: {
+                        required: "Message box can't be empty."
+                    }
+                }
+
+
+            });
+            });
+            /********end of contact form validation *********/
+</script>
+
+
+
+<div id="section-get-in-touch" class="parallax animated classget-in-touch fadeInUp visible scollCont" data-animation="fadeInUp" data-animation-delay="600">
+    <div class="container">
+        <h1 class="section_heading" style="color:; padding-bottom:;">Get In Touch</h1>
+        <h3 class="section_slogan" style="color:;">Every day, we post a workout to tone & sculpt your beautiful body. Remember, you can make it work with your schedule~ morning, afternoon, evening...whatever works best for YOU! And, feel free to sub in your favorite yoga, dance or spin class!  </h3>
+        <div id="wpcf7-f23-o1" class="wpcf7" dir="ltr" lang="en-US">
+
+        <% if(message.length > 0){%>
+        <%= message %>
+        <% } %>
+            <form class="wpcf7-form" name="" action="/contact" method="Post" novalidate="novalidate" id="contact">
+                <div class="contactform col-sm-12 animated tada visible" data-animation-delay="600" data-animation="tada">
+                    <div class="form_left col-sm-6">
+                    <p><span class="wpcf7-form-control-wrap your-name"><input name="senderName" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Your Name" type="text" required></span> </p>
+                    <p><span class="wpcf7-form-control-wrap your-email"><input name="senderEmail" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Your Email Address" type="email"></span> </p>
+                    <p><span class="wpcf7-form-control-wrap your-subject"><input name="subject" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Subject" type="text" required></span> </p>
+                    </div>
+                    <div class="form_right col-sm-6">
+                    <p><span class="wpcf7-form-control-wrap your-message"><textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Your Message" required></textarea></span> </p>
+                    </div>
+                    <div class="submitbtn">
+                    <p><input class="wpcf7-form-control wpcf7-submit" value="Send" type="submit"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO7ZaNOcPJInrbzChJokT9zaQ2VVQm0yw&libraries=geometry">
+</script>
+
+<div class="cont-des">
+<div class="container">
+    <h2>145 Webster Street <br>
+Hanover, MA, 02339</h2>
+<div class="row">
+
+<div class="col-sm-6">
+    <div class="cont">
+        <h4><b>Members</b> </h4>
+        <h4>Jonathan Flight - Co-Founder & CEO </h4>
+
+<h4>Nicholas Sarruda - Co-Founder, COO & Director of Digital Infrastructure </h4>
+
+<h4>Zachary Trulby-Wright - Chief Technology Officer & Developer </h4>
+
+ <h4><b>Mission Statement</b> </h4>
+ <h4><i>"To uphold a high standard for our members, staff, and clients. To create a platform which allows its users to construct and reach specified goals, through providing a comprehensive fitness plan and support network." </i></h4>
+    </div><!--members-->
+</div><!--col-sm-6-->
+
+<div class="col-sm-6">
+    <div id="zozo_gmap" class="gmap_canvas">
+
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2957.70447795556!2d-70.85644634942219!3d42.15661035581667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e49fd2186bab5b%3A0x44aa158153b247d8!2s145+Webster+St%2C+Hanover%2C+MA+02339%2C+USA!5e0!3m2!1sen!2sin!4v1498630350104" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
+</div><!--col-sm-6-->
+
+</div><!--row-->
+</div><!--container-->
+</div> <!--cont-des-->
+
